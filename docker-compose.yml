@@ -1,7 +1,7 @@
 es:
   build: EventStore
   ports:
-   - "5000:80"
+   - "2113:3000"
 #  volumes:
 #   - .:/code
 #  links:

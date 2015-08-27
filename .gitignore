@@ -1,1 +1,3 @@
 .idea
+EventStore/data/db
+EventStore/data/logs

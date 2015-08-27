@@ -1,9 +1,11 @@
 es:
   build: EventStore
   ports:
-   - "2113:3000"
-#  volumes:
-#   - .:/code
+   - "2113:2113"
+   -
+  volumes:
+   - ./EventStore/data/db:/data/db
+   - ./EventStore/data/logs:/data/logs
 #  links:
 #   - redis
 #redis:

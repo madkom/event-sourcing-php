@@ -12,4 +12,4 @@ VOLUME /data/logs
 
 WORKDIR /opt/EventStore-OSS-Ubuntu-v3.1.0
 
-CMD ./run-node.sh --db /data/db --log /data/logs --ext-http-prefixes=http://127.0.0.1:2113/ --ext-ip=0.0.0.0
+CMD ./run-node.sh --ext-tcp-port=1113 --db /data/db --log /data/logs --ext-http-port=2113 --ext-http-prefixes=http://127.0.0.1:2113/ --ext-ip=0.0.0.0

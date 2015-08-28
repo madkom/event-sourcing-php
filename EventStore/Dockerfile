@@ -4,6 +4,8 @@ ENV NOTVISIBLE "in users profile"
 RUN apt-get update -y && apt-get install curl -y
 RUN curl http://download.geteventstore.com/binaries/EventStore-OSS-Ubuntu-v3.1.0.tar.gz | tar xz -C /opt
 
+RUN echo "export VISIBLE=now" >> /etc/profile
+
 EXPOSE 2113
 EXPOSE 1113
 

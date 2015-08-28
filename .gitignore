@@ -1,3 +1,6 @@
 .idea
-EventStore/data/db
-EventStore/data/logs
+EventStore/data/db/
+EventStore/data/logs/
+Client/vendor/
+Client/bin/
+/vendor/

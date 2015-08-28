@@ -1,0 +1,4 @@
+suites:
+  client:
+    namespace: Dgafka\ES\Client
+    psr4_prefix: Dgafka\ES\Client

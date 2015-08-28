@@ -1,0 +1,26 @@
+{
+  "name": "dgafka/event-sourcing-user-php",
+  "description": "Demo application with event sourcing.",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Darek Gafka",
+          "email": "d.gafka@madkom.pl"
+      }
+  ],
+  "require": {
+    "broadway/broadway": "0.7.*"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "2.2.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dgafka\\ES\\Client\\": "src"
+    }
+  },
+  "config": {
+    "bin-dir": "bin"
+  }
+}

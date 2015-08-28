@@ -1,0 +1,13 @@
+{
+    "name": "dgafka/event-sourcing-php",
+    "description": "Demo application with event sourcing and microservices",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Darek Gafka",
+            "email": "d.gafka@madkom.pl"
+        }
+    ],
+    "require": {}
+}

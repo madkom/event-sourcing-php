@@ -1,7 +1,7 @@
 es:
   build: EventStore
   ports:
-   - "2113:2113"
+   - "3000:2113"
    - "3001:1113"
   volumes:
    - ./EventStore/data/db:/data/db

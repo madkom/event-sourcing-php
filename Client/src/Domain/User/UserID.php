@@ -1,13 +1,14 @@
 <?php
 
 namespace Dgafka\ES\Client\Domain\User;
+use Dgafka\ES\Client\SharedKernel\Domain\ID;
 
 /**
  * Class UserID
  * @package Dgafka\ES\Client\Domain\User
  * @author  Dariusz Gafka <d.gafka@madkom.pl>
  */
-class UserID
+class UserID implements ID
 {
 
     /** @var  string */

@@ -7,7 +7,7 @@ namespace Dgafka\ES\Client\Domain\User;
  * @package Dgafka\ES\Client\Domain\User
  * @author  Dariusz Gafka <d.gafka@madkom.pl>
  */
-class UserInformation
+class UserData
 {
 
     /** @var  string */

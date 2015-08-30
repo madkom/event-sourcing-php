@@ -92,4 +92,10 @@ class UserSpec extends ObjectBehavior
         $domainMessage->getPayload()->ID()->shouldReturn('2');
     }
 
+    function it_should_dissallow_user_become_VIP_if_blocked()
+    {
+        $this->instance->changeStatus(UserStatus::BLOCKED);
+        $this->instance->shouldThrow('\Dgafka\ES\Client\SharedKernel\Domain\DomainException')->during('becomeVIP');
+    }
+
 }

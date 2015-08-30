@@ -92,6 +92,10 @@ class User extends EventSourcedAggregateRoot
      */
     public function becomeVIP()
     {
+        if(!$this->status->isActive()) {
+            throw new DomainException('Can\' change user data, because user is not active.');
+        }
+
         $this->apply(new UserBecameVIPEvent($this->userID->ID()));
     }
 

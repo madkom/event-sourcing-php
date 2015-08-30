@@ -66,13 +66,13 @@ class UserSpec extends ObjectBehavior
 
     function it_should_change_user_status()
     {
-        $this->instance->changeStatus(UserStatus::ACTIVE);
+        $this->instance->changeStatus(UserStatus::BLOCKED);
 
         $domainIterator = $this->instance->getUncommittedEvents()->getIterator();
         /** @var DomainMessage $domainMessage */
         $domainMessage = $domainIterator->offsetGet(0);
         $domainMessage->getPayload()->shouldHaveType('Dgafka\ES\Client\Domain\User\UserChangedStatusEvent');
-        $domainMessage->getPayload()->status()->shouldReturn(UserStatus::ACTIVE);
+        $domainMessage->getPayload()->status()->shouldReturn(UserStatus::BLOCKED);
     }
 
     function it_should_throw_exception_if_user_changes_data_while_status_in_not_active(UserData $userData)
@@ -97,5 +97,24 @@ class UserSpec extends ObjectBehavior
         $this->instance->changeStatus(UserStatus::BLOCKED);
         $this->instance->shouldThrow('\Dgafka\ES\Client\SharedKernel\Domain\DomainException')->during('becomeVIP');
     }
+
+    function it_should_not_create_event_if_user_status_has_not_changed()
+    {
+        $this->instance->changeStatus(UserStatus::ACTIVE);
+        $domainIterator = $this->instance->getUncommittedEvents()->getIterator();
+        $domainIterator->count()->shouldReturn(0);
+    }
+
+    function it_should_not_create_event_if_user_is_already_vip()
+    {
+        $this->instance->becomeVIP();
+        $domainIterator = $this->instance->getUncommittedEvents()->getIterator();
+        $domainIterator->offsetExists(0)->shouldReturn(true);
+
+        $this->instance->becomeVIP();
+        $domainIterator = $this->instance->getUncommittedEvents()->getIterator();
+        $domainIterator->count()->shouldReturn(0);
+    }
+
 
 }

@@ -55,4 +55,11 @@ class UserStatusSpec extends ObjectBehavior
         $this->status()->shouldReturn(UserStatus::ACTIVE);
     }
 
+
+    function it_should_check_equality()
+    {
+        $this->equals(UserStatus::ACTIVE)->shouldReturn(true);
+        $this->equals(UserStatus::BLOCKED)->shouldReturn(false);
+    }
+
 }

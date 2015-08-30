@@ -61,6 +61,16 @@ class UserStatus
 	}
 
 	/**
+	 * @param string $status
+	 *
+	 * @return bool
+	 */
+	public function equals($status)
+	{
+		return $this->status === $status;
+	}
+
+	/**
 	 * Sets user status
 	 *
 	 * @param $status

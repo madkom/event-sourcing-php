@@ -84,6 +84,11 @@ class User extends EventSourcedAggregateRoot
      */
     public function changeStatus($status)
     {
+
+        if($this->status->equals($status)) {
+            return;
+        }
+
         $this->apply(new UserChangedStatusEvent($status));
     }
 
@@ -94,6 +99,11 @@ class User extends EventSourcedAggregateRoot
     {
         if(!$this->status->isActive()) {
             throw new DomainException('Can\' change user data, because user is not active.');
+        }
+
+        if($this->vipStatus) {
+            //We don't need to push event, since nothing will change
+            return;
         }
 
         $this->apply(new UserBecameVIPEvent($this->userID->ID()));

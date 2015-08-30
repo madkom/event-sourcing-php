@@ -1,6 +1,20 @@
 ## Repository under development. Come back later :)
 
+### About the project
 
+The goal of the project is to provide example micro-service powered by event sourcing architecture. 
+
+There are two main applications.
+Read more about story around applications in `Domain Scenarios` section
+
+`Client`
+    
+    Application for user registration and managing.
+    Written with DDD style, using Event Sourcing with CQRS (part)
+    Client writes all events to Event Store
+    (Read more)[Client/README.md]
+    
+Banking
 
 ### Domain Scenarios ###
 When user is created in system, account associated with him is created also.

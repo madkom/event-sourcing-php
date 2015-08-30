@@ -1,5 +1,5 @@
 FROM debian:jessie
-MAINTAINER Dariusz Gafka
+MAINTAINER Dariusz Gafka dgafka.mail@gmail.com
 ENV NOTVISIBLE "in users profile"
 RUN apt-get update -y && apt-get install curl -y
 RUN curl http://download.geteventstore.com/binaries/EventStore-OSS-Ubuntu-v3.1.0.tar.gz | tar xz -C /opt

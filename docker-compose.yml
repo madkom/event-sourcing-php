@@ -8,5 +8,9 @@ es:
    - ./EventStore/data/logs:/data/logs
 #  links:
 #   - redis
-#redis:
-#  image: redis
+client:
+  build: Client
+  ports:
+   - "3002:80"
+  volumes:
+   - ./Client:/var/www

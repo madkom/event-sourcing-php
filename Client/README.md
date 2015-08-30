@@ -1,4 +1,13 @@
 ## Client Application
+    
+### About the application
+    
+    Application is written with DDD + Event Sourcing + CQRS (part) in mind.
+    For REST UI (Phalcon2)[https://phalconphp.com/pl/] is used, since it has the fastest request/response time from all frameworks right now. 
+    Domain is based (broadway)[https://github.com/qandidate-labs/broadway] framework
+    It stores all events in EventStore.
+
+### About the layers
 
 `Domain` - Most important layer in the application. Should contain high cohesion and be open for extending closed for modification.
 All classes should hide their internal behaviour and abstract logic which is not revealed yet or actions, which going to be handle by 3rd party.
@@ -7,7 +16,7 @@ All classes should hide their internal behaviour and abstract logic which is not
  What does it mean is, that it should take building blocks, which are necessary to complete some action and use them.
  Here caching, transactions, security should have it place. 
 
-`Infrastructure` - Takes all abstracted classes from `Application` and `Domain` and implemenets it.
+`Infrastructure` - Takes all abstracted classes from `Application` and `Domain` and implements it.
 
 `UI` - User Interface Layer isn't just about GUI, but about interaction between client and server (application).
 It may contains web gui/rest/soap or anything, which will help to communicate with the server.

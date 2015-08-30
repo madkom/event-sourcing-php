@@ -32,6 +32,9 @@ class User extends EventSourcedAggregateRoot
      */
     public function __construct()
     {
+        //Constructor should be stupid.
+        //All base properties should go to factory.
+        //For testing purpose it's placed here (Don't do dump copy/paste)
         $this->status    = new UserStatus(UserStatus::ACTIVE);
         $this->vipStatus = false;
     }

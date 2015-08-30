@@ -3,10 +3,10 @@
 namespace Dgafka\ES\Client\Application\API;
 
 
-use Dgafka\ES\Client\Application\Internal\ClientBecomeVIPCommand;
-use Dgafka\ES\Client\Application\Internal\ClientChangeDataCommand;
-use Dgafka\ES\Client\Application\Internal\ClientChangeStatus;
-use Dgafka\ES\Client\Application\Internal\ClientRegistrationCommand;
+use Dgafka\ES\Client\Application\Internal\Client\ClientBecomeVIPCommand;
+use Dgafka\ES\Client\Application\Internal\Client\ClientChangeDataCommand;
+use Dgafka\ES\Client\Application\Internal\Client\ClientChangeStatus;
+use Dgafka\ES\Client\Application\Internal\Client\ClientRegistrationCommand;
 
 /**
  * Interface Client - API for outside clients, without internal behaviour.

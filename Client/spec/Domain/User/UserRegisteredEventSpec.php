@@ -3,6 +3,7 @@
 namespace spec\Dgafka\ES\Client\Domain\User;
 
 use Dgafka\ES\Client\Domain\User\UserRegisteredEvent;
+use Dgafka\ES\Client\Domain\User\UserStatus;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -18,7 +19,7 @@ class UserRegisteredEventSpec extends ObjectBehavior
 
     function let()
     {
-        $this->beConstructedWith('identity', 'Alfred', 'Maluto');
+        $this->beConstructedWith('identity', 'Alfred', 'Maluto', UserStatus::ACTIVE);
     }
 
     function it_is_initializable()

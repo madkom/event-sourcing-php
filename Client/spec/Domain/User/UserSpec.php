@@ -6,6 +6,7 @@ use Broadway\Domain\DomainMessage;
 use Dgafka\ES\Client\Domain\User\User;
 use Dgafka\ES\Client\Domain\User\UserData;
 use Dgafka\ES\Client\Domain\User\UserID;
+use Dgafka\ES\Client\Domain\User\UserStatus;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -61,6 +62,34 @@ class UserSpec extends ObjectBehavior
         $domainMessage->getPayload()->shouldHaveType('Dgafka\ES\Client\Domain\User\UserChangedDataEvent');
         $domainMessage->getPayload()->name()->shouldReturn('Alfred');
         $domainMessage->getPayload()->surname()->shouldReturn('Mad');
+    }
+
+    function it_should_change_user_status()
+    {
+        $this->instance->changeStatus(UserStatus::ACTIVE);
+
+        $domainIterator = $this->instance->getUncommittedEvents()->getIterator();
+        /** @var DomainMessage $domainMessage */
+        $domainMessage = $domainIterator->offsetGet(0);
+        $domainMessage->getPayload()->shouldHaveType('Dgafka\ES\Client\Domain\User\UserChangedStatusEvent');
+        $domainMessage->getPayload()->status()->shouldReturn(UserStatus::ACTIVE);
+    }
+
+    function it_should_throw_exception_if_user_changes_data_while_status_in_not_active(UserData $userData)
+    {
+        $this->instance->changeStatus(UserStatus::BLOCKED);
+        $this->instance->shouldThrow('Dgafka\ES\Client\SharedKernel\Domain\DomainException')->during('changeUserData', [$userData]);
+    }
+
+    function it_should_change_user_to_vip()
+    {
+        $this->instance->becomeVIP();
+
+        $domainIterator = $this->instance->getUncommittedEvents()->getIterator();
+        /** @var DomainMessage $domainMessage */
+        $domainMessage = $domainIterator->offsetGet(0);
+        $domainMessage->getPayload()->shouldHaveType('Dgafka\ES\Client\Domain\User\UserBecameVIPEvent');
+        $domainMessage->getPayload()->ID()->shouldReturn('2');
     }
 
 }

@@ -3,6 +3,7 @@
 namespace Dgafka\ES\Client\Domain\User;
 
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
+use Dgafka\ES\Client\SharedKernel\Domain\DomainException;
 
 /**
  * User in Client System
@@ -19,6 +20,21 @@ class User extends EventSourcedAggregateRoot
 
     /** @var  UserData */
     private $userData;
+
+    /** @var  UserStatus user status */
+    private $status;
+
+    /** @var  bool */
+    private $vipStatus;
+
+    /**
+     * Construct user
+     */
+    public function __construct()
+    {
+        $this->status    = new UserStatus(UserStatus::ACTIVE);
+        $this->vipStatus = false;
+    }
 
     /**
      * @return string
@@ -50,10 +66,33 @@ class User extends EventSourcedAggregateRoot
      * Changes user data
      *
      * @param UserData $userData
+     *
+     * @throws DomainException
      */
     public function changeUserData(UserData $userData)
     {
+        if(!$this->status->isActive()) {
+            throw new DomainException('Can\' change user data, because user is not active.');
+        }
         $this->apply(new UserChangedDataEvent($userData->name(), $userData->surname()));
+    }
+
+    /**
+     * Change user status
+     *
+     * @param string $status
+     */
+    public function changeStatus($status)
+    {
+        $this->apply(new UserChangedStatusEvent($status));
+    }
+
+    /**
+     * Make use VIP
+     */
+    public function becomeVIP()
+    {
+        $this->apply(new UserBecameVIPEvent($this->userID->ID()));
     }
 
     /**
@@ -72,9 +111,29 @@ class User extends EventSourcedAggregateRoot
      *
      * @param UserChangedDataEvent $userChangedData
      */
-    protected function applyUserChangedData(UserChangedDataEvent $userChangedData)
+    protected function applyUserChangedDataEvent(UserChangedDataEvent $userChangedData)
     {
         $this->userData = new UserData($userChangedData->name(), $userChangedData->surname());
+    }
+
+    /**
+     * Applies user change status event
+     *
+     * @param UserChangedStatusEvent $userChangedStatus
+     */
+    protected function applyUserChangedStatusEvent(UserChangedStatusEvent $userChangedStatus)
+    {
+        $this->status = $this->status->changeStatus($userChangedStatus->status());
+    }
+
+    /**
+     * Applies user became VIP event
+     *
+     * @param UserBecameVIPEvent $userBecameVIPEvent
+     */
+    protected function applyUserBecameVIPEvent(UserBecameVIPEvent $userBecameVIPEvent)
+    {
+        $this->vipStatus = true;
     }
 
 }

@@ -18,7 +18,8 @@ class UUIDGenerator implements \Dgafka\ES\Client\Application\Service\UUIDGenerat
 	 */
 	public function generateUUID()
 	{
-		return Uuid::uuid1();
+		$uuid = Uuid::uuid1();
+		return $uuid->toString();
 	}
 
 }

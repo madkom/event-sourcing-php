@@ -10,7 +10,8 @@
       }
   ],
   "require": {
-    "broadway/broadway": "0.7.*"
+    "broadway/broadway": "0.7.*",
+    "ramsey/uuid": "2.7.*"
   },
   "require-dev": {
     "phpspec/phpspec": "2.2.*"

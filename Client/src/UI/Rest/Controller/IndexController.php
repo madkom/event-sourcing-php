@@ -12,9 +12,14 @@ use Phalcon\Mvc\Controller;
 class IndexController extends Controller
 {
 
-    public function indexAction()
+//    public function indexAction()
+//    {
+//       echo "yes";
+//    }
+
+    public function testAction()
     {
-       echo "yes";
+        echo "yeah";
     }
 
 }

@@ -8,21 +8,13 @@ use Phalcon\DI\FactoryDefault;
 use Phalcon\Mvc\Url as UrlProvider;
 
 try {
-
     // Create a DI
     $di = new FactoryDefault();
 
     // Setup the view component
     $di->set('view', function () {
         $view = new View();
-        $view->setContent('works');
         return $view;
-    });
-
-    $di->set('url', function () {
-        $url = new UrlProvider();
-        $url->setBaseUri('/');
-        return $url;
     });
 
     $di->set('dispatcher', function(){
@@ -31,15 +23,20 @@ try {
         return $dispatcher;
     });
 
-    $router = new \Phalcon\Mvc\Router();
-    $router->add(
-        '/test',
-        [
-            'controller' => 'IndexController',
-            'action'     => 'action'
-        ]
-    );
-    $router->handle();
+    $di->set('router', function(){
+
+        $router = new \Phalcon\Mvc\Router();
+        $router->add(
+            '/about',
+            [
+                'namespace'  => 'Dgafka\\ES\\Client\\UI\\Rest\\Controller',
+                'controller' => 'index',
+                'action'     => 'test'
+            ]
+        );
+
+        return $router;
+    });
 
     // Handle the request
     $application = new Application($di);

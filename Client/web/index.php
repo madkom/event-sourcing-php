@@ -29,7 +29,6 @@ try {
         $router->add(
             '/about',
             [
-                'namespace'  => 'Dgafka\\ES\\Client\\UI\\Rest\\Controller',
                 'controller' => 'index',
                 'action'     => 'test'
             ]

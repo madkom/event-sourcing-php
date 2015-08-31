@@ -17,6 +17,8 @@ RUN apt-get install -y ca-certificates nginx=${NGINX_VERSION} && \
 RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/fpm/php.ini
 RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf
 
+RUN echo 'extension=/usr/lib/php5/20131226/phalcon.so' > /etc/php5/fpm/conf.d/20-phalcon.ini
+
 ADD ./docker/fpm/www.conf /etc/php5/fpm/pool.d/www.conf
 ADD ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
 ADD ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf

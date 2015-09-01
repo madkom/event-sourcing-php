@@ -22,7 +22,7 @@ interface Client
 	 *
 	 * @param ClientRegistrationCommand $command
 	 *
-	 * @return void
+	 * @return string - New created ID
 	 */
 	public function register(ClientRegistrationCommand $command);
 

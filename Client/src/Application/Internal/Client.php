@@ -46,19 +46,21 @@ class Client implements \Dgafka\ES\Client\Application\API\Client
 	}
 
 	/**
-	 * Registers client
+	 * Registers user
 	 *
 	 * @param ClientRegistrationCommand $command
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function register(ClientRegistrationCommand $command)
 	{
 		$userID = new UserID($this->uuidGenerator->generateUUID());
-
 		$user = User::register($userID, new UserData($command->name(), $command->surname()));
 
+
 		$this->userRepository->save($user);
+
+		return $userID->ID();
 	}
 
 	/**

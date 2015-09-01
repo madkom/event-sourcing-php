@@ -2,6 +2,8 @@
 
 namespace Dgafka\ES\Client\Domain\User;
 
+use Broadway\Domain\AggregateRoot;
+
 /**
  * Interface UserRepository - Repository for user, which handles read/writes
  *
@@ -12,11 +14,11 @@ interface UserRepository
 {
 
 	/**
-	 * @param User $user
+	 * @param AggregateRoot $user
 	 *
 	 * @return void
 	 */
-	public function save(User $user);
+	public function save(AggregateRoot $user);
 
 	/**
 	 * @param UserID $userID

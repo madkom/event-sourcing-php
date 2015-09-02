@@ -11,7 +11,7 @@ Read more about story around applications in `Domain Scenarios` section
     
 Application for user registration and managing.
 Written with `DDD` style, using `Event Sourcing` with `CQRS` (part)
-(Client)[https://github.com/dgafka/event-sourcing-php/blob/develop/Client/README.md] writes all events to (Event Store)[https://github.com/dgafka/event-sourcing-php/blob/develop/EventStore/README.md].
+[Client](https://github.com/dgafka/event-sourcing-php/blob/develop/Client/README.md) writes all events to [Event Store](https://github.com/dgafka/event-sourcing-php/blob/develop/EventStore/README.md).
     
 #### Banking
 

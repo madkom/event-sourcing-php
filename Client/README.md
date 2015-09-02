@@ -3,9 +3,9 @@
 ### About the application
     
 Application is written with `DDD` + `Event Sourcing` + `CQRS` (part) in mind.
-For REST UI (Phalcon2)[https://phalconphp.com/pl/] is used, since it has the fastest request/response time from all frameworks right now. 
-Domain is based (broadway)[https://github.com/qandidate-labs/broadway] framework
-It stores all events in (EventStore)[http://docs.geteventstore.com/].
+For REST UI [Phalcon2](https://phalconphp.com/pl/) is used, since it has the fastest request/response time from all frameworks right now. 
+Domain is based [broadway](https://github.com/qandidate-labs/broadway) framework
+It stores all events in [EventStore](http://docs.geteventstore.com/).
 
 ### About the layers
 

@@ -7,14 +7,13 @@ The goal of the project is to provide example micro-service powered by event sou
 There are two main applications.
 Read more about story around applications in `Domain Scenarios` section
 
-`Client`
+#### Client
     
 Application for user registration and managing.
 Written with `DDD` style, using `Event Sourcing` with `CQRS` (part)
-Client writes all events to Event Store
-(Read more)[Client/README.md]
+(Client)[https://github.com/dgafka/event-sourcing-php/blob/develop/Client/README.md] writes all events to (Event Store)[https://github.com/dgafka/event-sourcing-php/blob/develop/EventStore/README.md].
     
-Banking
+#### Banking
 
 ### Domain Scenarios ###
 When user is created in system, account associated with him is created also.

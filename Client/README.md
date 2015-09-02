@@ -28,9 +28,10 @@ Which shared between production projects some classes like events, building bloc
 
 ## Rest API
 
-### Write Model
+   IP: localhost:3002/
 
-   localhost:3002/
+
+### Write Model
 
 `register` - Creates new client in the system.
  

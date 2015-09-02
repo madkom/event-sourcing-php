@@ -2,7 +2,6 @@
 
 namespace Dgafka\ES\Client\Infrastructure;
 
-
 use Broadway\Domain\DomainEventStream;
 use Broadway\Domain\DomainEventStreamInterface;
 use Broadway\EventStore\EventStoreInterface;

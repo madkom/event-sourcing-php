@@ -3,4 +3,4 @@
 namespace Dgafka\ES\Client\SharedKernel\Domain;
 
 
-interface DomainEvent {}
+interface DomainEvent extends \Serializable{}

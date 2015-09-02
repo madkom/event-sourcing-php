@@ -67,7 +67,7 @@ class UserStatus
 	 */
 	public function equals($status)
 	{
-		return $this->status === $status;
+		return $this->status == $status;
 	}
 
 	/**
@@ -81,7 +81,7 @@ class UserStatus
 		$constants = $rflClass->getConstants();
 
 		foreach($constants as $constant) {
-			if($constant === $status) {
+			if($constant == $status) {
 				$this->status = $status;
 				return;
 			}

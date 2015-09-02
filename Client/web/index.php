@@ -18,7 +18,7 @@ try {
 
     $di->setShared('clientAPI', function(){
         return new Client(new UUIDGenerator(), new UserRepositoryEventSourced(
-            new EventStoreInMemory(),
+            new \Dgafka\ES\Client\Infrastructure\EventStoreAtom(),
             'Dgafka\ES\Client\Domain\User\User',
             new UserFactory()
         ));

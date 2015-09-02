@@ -24,3 +24,34 @@ It may contains web gui/rest/soap or anything, which will help to communicate wi
 `SharedKernel` - For example purposes created within project. 
 In production ready project, should be placed as stand-alone library.
 Which shared between production projects some classes like events, building blocks etc.
+
+
+## Rest API
+
+### Write Model
+
+   localhost:3002/
+
+`register` - Creates new client in the system.
+ 
+    @param "name"  
+    @param "surname"
+    
+    @return client's ID
+     
+`changedata` - Change client's data 
+
+    @param "id" - Client's ID
+    @param "name"  
+    @param "surname"
+        
+    @return void
+        
+`changestatus` - Changes client's status. After registration client status is 0. Disables all other actions till status = 1
+
+    @param "id"
+    @param "status" - [0 - active, 1 - blocked]
+    
+`makevip` - Make client a vip
+
+    @param "id"

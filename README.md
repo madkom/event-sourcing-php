@@ -9,10 +9,10 @@ Read more about story around applications in `Domain Scenarios` section
 
 `Client`
     
-    Application for user registration and managing.
-    Written with DDD style, using Event Sourcing with CQRS (part)
-    Client writes all events to Event Store
-    (Read more)[Client/README.md]
+Application for user registration and managing.
+Written with `DDD` style, using `Event Sourcing` with `CQRS` (part)
+Client writes all events to Event Store
+(Read more)[Client/README.md]
     
 Banking
 

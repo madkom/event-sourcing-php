@@ -33,14 +33,14 @@ Which shared between production projects some classes like events, building bloc
 
 ### Write Model
 
-`register` - Creates new client in the system.
+`register` [POST] - Creates new client in the system.
  
     @param "name"  
     @param "surname"
     
     @return client's ID
      
-`changedata` - Change client's data 
+`changedata` [PUT] - Change client's data
 
     @param "id" - Client's ID
     @param "name"  
@@ -48,11 +48,11 @@ Which shared between production projects some classes like events, building bloc
         
     @return void
         
-`changestatus` - Changes client's status. After registration client status is 0. Disables all other actions till status = 1
+`changestatus` [PUT] - Changes client's status. After registration client status is 0. Disables all other actions till status = 1
 
     @param "id"
     @param "status" - [0 - active, 1 - blocked]
     
-`makevip` - Make client a vip
+`makevip` [PUT] - Make client a vip
 
     @param "id"

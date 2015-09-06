@@ -1,8 +1,13 @@
 es:
   build: EventStore
+  extra_hosts:
+   - "eventstore.com:127.0.0.1"
   volumes:
    - ./EventStore/data/db:/data/db
    - ./EventStore/data/logs:/data/logs
+  ports:
+    - "2113:2113"
+    - "1113:1113"
 client:
   build: Client
   ports:

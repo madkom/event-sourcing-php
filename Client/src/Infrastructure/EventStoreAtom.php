@@ -83,6 +83,8 @@ class EventStoreAtom implements EventStoreInterface
     public function append($id, DomainEventStreamInterface $eventStream)
     {
         $eventsToSave = [];
+
+
         /** @var DomainMessage $domainMessage */
         foreach($eventStream->getIterator() as $domainMessage) {
             $event['uuid']     = $domainMessage->getId()->ID();
@@ -95,9 +97,12 @@ class EventStoreAtom implements EventStoreInterface
             $eventsToSave[] = WritableEvent::newInstance($domainMessage->getType(), $event, $domainMessage->getMetadata()->serialize());
         }
 
-        $eventsCollection = new WritableEventCollection($eventsToSave);
+        //If any event arrived. There are actions, which doesn't create events
+        if(isset($domainMessage)) {
+            $eventsCollection = new WritableEventCollection($eventsToSave);
 
-        $this->eventStore->writeToStream($domainMessage->getId()->ID(), $eventsCollection);
+            $this->eventStore->writeToStream($domainMessage->getId()->ID(), $eventsCollection);
+        }
     }
 
 }

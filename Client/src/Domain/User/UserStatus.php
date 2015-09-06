@@ -39,7 +39,7 @@ class UserStatus
 	 */
     public function isActive()
     {
-		return $this->status === self::ACTIVE;
+		return $this->status == self::ACTIVE;
     }
 
 	/**

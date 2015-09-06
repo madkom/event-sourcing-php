@@ -51,21 +51,21 @@ try {
             [
                 'controller' => 'client',
                 'action'     => 'changeData'
-            ], ['POST']
+            ], ['PUT']
         );
         $router->add(
             '/changestatus',
             [
                 'controller' => 'client',
                 'action'     => 'changeStatus'
-            ], ['POST']
+            ], ['PUT']
         );
         $router->add(
             '/makevip',
             [
                 'controller' => 'client',
                 'action'     => 'makeVIP'
-            ], ['POST']
+            ], ['PUT']
         );
 
         return $router;

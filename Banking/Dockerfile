@@ -10,6 +10,10 @@ RUN cd /opt && git clone --depth=1 https://github.com/json-c/json-c.git && cd js
 
 RUN cd /opt && git clone --depth=1 git://github.com/phalcon/cphalcon.git && cd cphalcon/build && git checkout phalcon-v2.0.7  && ./install
 
+RUN cd /opt && git clone git@github.com:allegro/php-protobuf.git && cd php-protobuf
+RUN phpize && ./configure && make install
+RUN echo extension = protobuf.so >> /etc/php5/fpm/php.ini
+
 ENV NGINX_VERSION 1.9.4-1~jessie
 RUN apt-get install -y ca-certificates nginx=${NGINX_VERSION} && \
     rm -rf /var/lib/apt/lists/*

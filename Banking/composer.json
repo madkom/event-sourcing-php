@@ -1,0 +1,29 @@
+{
+  "name": "dgafka/event-sourcing-banking-php",
+  "description": "Demo application with event sourcing.",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Darek Gafka",
+          "email": "d.gafka@madkom.pl"
+      }
+  ],
+  "require": {
+    "madkom/eventstore-client": "0.8.*",
+    "TrafficCophp/ByteBuffer": "dev-master",
+    "jms/serializer": "1.0.0",
+    "react/socket-client": "v0.4.3"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "2.2.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Madkom\\ES\\Banking\\": "src"
+    }
+  },
+  "config": {
+    "bin-dir": "bin"
+  }
+}

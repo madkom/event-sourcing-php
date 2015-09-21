@@ -3,4 +3,6 @@ EventStore/data/db/
 EventStore/data/logs/
 Client/vendor/
 Client/bin/
+Banking/vendor/
+Banking/bin/
 /vendor/

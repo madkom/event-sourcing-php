@@ -32,3 +32,11 @@ User can become VIP, then he receives extra 50$.
 
 There should be possibility to see whole user history (changes over time)
 
+### Requirements
+
+To run the project you need to have installed
+
+1. [docker](https://www.docker.com/)
+2. [docker-compose](https://docs.docker.com/compose/)
+
+`Weave` for service discovery.

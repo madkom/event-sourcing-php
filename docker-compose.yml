@@ -16,3 +16,11 @@ client:
    - ./Client:/var/www
   links:
    - es
+#banking:
+#  build: Banking
+#  ports:
+#    - "3003:80"
+#  volumes:
+#    - ./Banking:/var/www
+#  links:
+#    - es

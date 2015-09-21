@@ -16,6 +16,15 @@ client:
    - ./Client:/var/www
   links:
    - es
+consul:
+  build: Consul
+  hostname: "consul1"
+  ports:
+    - "8400:8400"
+    - "8500:8500"
+    - "8600:8600"
+  volumes:
+    - ./Consul/data:/opt/consul
 #banking:
 #  build: Banking
 #  ports:

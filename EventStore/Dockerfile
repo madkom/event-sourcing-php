@@ -10,6 +10,7 @@ ADD ./docker/supervisord/eventstore.conf /etc/supervisor/conf.d/eventstore.conf
 
 EXPOSE 2113
 EXPOSE 1113
+EXPOSE 9001
 
 VOLUME /data/db
 VOLUME /data/logs

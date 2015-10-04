@@ -8,10 +8,9 @@ RUN apt-get update -y
 RUN apt-get install vim gcc make re2c libpcre3-dev autoconf autogen intltool libtool git php5-dev php5-fpm supervisor -y
 RUN cd /opt && git clone --depth=1 https://github.com/json-c/json-c.git && cd json-c && sh autogen.sh && ./configure && make && make install
 
-RUN cd /opt && git clone --depth=1 git://github.com/phalcon/cphalcon.git && cd cphalcon/build && git checkout phalcon-v2.0.7  && ./install
+RUN cd /opt && git clone git://github.com/phalcon/cphalcon.git && cd cphalcon/build && git checkout phalcon-v2.0.7  && ./install
 
-ENV NGINX_VERSION 1.9.4-1~jessie
-RUN apt-get install -y ca-certificates nginx=${NGINX_VERSION} && \
+RUN apt-get install -y ca-certificates nginx && \
     rm -rf /var/lib/apt/lists/*
 
 RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/fpm/php.ini

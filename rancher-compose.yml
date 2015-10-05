@@ -1,0 +1,18 @@
+es:
+  scale: 1
+client:
+  scale: 2
+wordpresslb:
+  scale: 1
+  load_balancer_config:
+    lb_cookie_stickiness_policy: null
+    description: null
+    name: clientlb config
+    app_cookie_stickiness_policy: null
+    health_check:
+      port: null
+      interval: 2000
+      unhealthy_threshold: 3
+      request_line: ''
+      healthy_threshold: 2
+      response_timeout: 2000

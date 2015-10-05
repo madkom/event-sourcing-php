@@ -1,8 +1,5 @@
 es:
   build: EventStore
-  hostname: eventstore
-  extra_hosts:
-   - "eventstore.com:127.0.0.1"
   volumes:
    - ./EventStore/data/db:/data/db
    - ./EventStore/data/logs:/data/logs
@@ -11,12 +8,18 @@ es:
     - "1113:1113"
 client:
   build: Client
-  ports:
-   - "3002:80"
   volumes:
    - ./Client:/var/www
   links:
    - es:eventstore
+clientlb:
+  ports:
+    - 1112:80
+  image: rancher/load-balancer-service
+  links:
+    - client: client
+  tty: true
+  stdin_open: true
 #banking:
 #  build: Banking
 #  ports:

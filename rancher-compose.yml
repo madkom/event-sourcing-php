@@ -1,7 +1,7 @@
 es:
   scale: 1
 client:
-  scale: 1
+  scale: 2
 clientlb:
   scale: 1
   load_balancer_config:

@@ -39,6 +39,7 @@ To run the project you need to have installed
 1. [docker](https://www.docker.com/)
 2. [docker-compose](https://docs.docker.com/compose/)
 3. [rancher](http://rancher.com/)
+4. [composer](https://getcomposer.org/)
 
 ## Installation
 
@@ -54,6 +55,7 @@ To run the project you need to have installed
 		and add env variable to the command:
 `sudo docker run -e CATTLE_AGENT_IP=192.168.0.13 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 http://192.168.0.13:1111/v1/scripts/454960D9BDBB0F694D89:1443607200000:xtVhhKyVGRBeZxvUf4dN5HdjZ6s`
 3. Go to `http://192.168.0.13:1080/infra/hosts` and check, if host appeared. If it doesn't exists get back to the `point 1`.
-4. Check, if this project is available from `/data`, for reason check `docker-compose.yml`
-5. Create `access key` on Rancher
-6. Run with your access key information `rancher-compose --access-key {access_key} --secret-key {secret_key} --url {url} -p event_sourcing up`
+4. Run `composer install` inside `Banking` and `Client` folders
+5. Check, if this project is available from `/data`, for reason check `docker-compose.yml`
+6. Create `access key` on Rancher
+7. Run with your access key information `rancher-compose --access-key {access_key} --secret-key {secret_key} --url {url} -p event_sourcing up`

@@ -1,14 +1,18 @@
 es:
   image: madkom/eventstore-docker:latest
+#  Your data need to be placed in /data, or this value need to be changed to your current working dir
   volumes:
-   - ./EventStore/data/db:/data/db
-   - ./EventStore/data/logs:/data/logs
+   - /data/EventStore/data/db:/data/db
+   - /data/EventStore/data/logs:/data/logs
 client:
   image: madkom/event-sourcing-php-client:latest
+#  Your data need to be placed in /data, or this value need to be changed to your current working dir
   volumes:
-   - ./Client:/var/www
+    - /data/Client:/var/www
   links:
-   - es:eventstore
+    - es:eventstore
+  labels:
+    - "io.rancher.sidekicks:es"
 clientlb:
   ports:
     - 80:80

@@ -1,5 +1,5 @@
 es:
-  build: git@github.com:dgafka/event-sourcing-php.git#feature/rancher:EventStore
+  image: madkom/eventstore-docker:latest
   volumes:
    - ./EventStore/data/db:/data/db
    - ./EventStore/data/logs:/data/logs

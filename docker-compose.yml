@@ -4,7 +4,7 @@ es:
    - ./EventStore/data/db:/data/db
    - ./EventStore/data/logs:/data/logs
 client:
-  build: git@github.com:dgafka/event-sourcing-php.git#feature/rancher:Client
+  image: madkom/event-sourcing-php-client:latest
   volumes:
    - ./Client:/var/www
   links:

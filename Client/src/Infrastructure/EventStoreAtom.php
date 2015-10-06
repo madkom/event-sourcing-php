@@ -24,7 +24,7 @@ class EventStoreAtom implements EventStoreInterface
 
     public function __construct()
     {
-        $this->eventStore = new EventStore('http://' . getenv('ES_PORT_2113_TCP_ADDR') . ':' . getenv('ES_PORT_2113_TCP_PORT'));
+        $this->eventStore = new EventStore('http://eventstore:2113');
     }
 
     /**

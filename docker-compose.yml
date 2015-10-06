@@ -1,24 +1,22 @@
 es:
-  build: EventStore
+  build: git@github.com:dgafka/event-sourcing-php.git#feature/rancher:EventStore
   volumes:
    - ./EventStore/data/db:/data/db
    - ./EventStore/data/logs:/data/logs
-  ports:
-    - "2113:2113"
-    - "1113:1113"
 client:
-  build: Client
+  build: git@github.com:dgafka/event-sourcing-php.git#feature/rancher:Client
   volumes:
    - ./Client:/var/www
   links:
    - es:eventstore
 clientlb:
   ports:
-    - 1112:80
+    - 80:80
+  restart: always
+  tty: true
   image: rancher/load-balancer-service
   links:
-    - client: client
-  tty: true
+    - client:client
   stdin_open: true
 #banking:
 #  build: Banking

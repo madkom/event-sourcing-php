@@ -26,11 +26,6 @@ In production ready project, should be placed as stand-alone library.
 Which shared between production projects some classes like events, building blocks etc.
 
 
-## Rest API
-
-   IP: localhost:3002/
-
-
 ### Write Model
 
 `register` [POST] - Creates new client in the system.

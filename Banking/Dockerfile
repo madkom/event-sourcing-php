@@ -14,8 +14,7 @@ RUN cd /opt && git clone git@github.com:allegro/php-protobuf.git && cd php-proto
 RUN phpize && ./configure && make install
 RUN echo extension = protobuf.so >> /etc/php5/fpm/php.ini
 
-ENV NGINX_VERSION 1.9.4-1~jessie
-RUN apt-get install -y ca-certificates nginx=${NGINX_VERSION} && \
+RUN apt-get install -y ca-certificates nginx && \
     rm -rf /var/lib/apt/lists/*
 
 RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/fpm/php.ini

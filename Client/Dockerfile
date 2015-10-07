@@ -5,7 +5,7 @@ RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC64107
 RUN echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list
 RUN apt-get update -y
 
-RUN apt-get install vim gcc make re2c libpcre3-dev autoconf autogen intltool libtool git php5-dev php5-fpm supervisor -y
+RUN apt-get install vim gcc make re2c libpcre3-dev autoconf autogen intltool libtool git php5-dev php5-fpm supervisor curl -y
 RUN cd /opt && git clone --depth=1 https://github.com/json-c/json-c.git && cd json-c && sh autogen.sh && ./configure && make && make install
 
 RUN cd /opt && git clone git://github.com/phalcon/cphalcon.git && cd cphalcon/build && git checkout phalcon-v2.0.7  && ./install
@@ -26,6 +26,8 @@ ADD ./docker/supervisord/nginx.conf /etc/supervisor/conf.d/nginx.conf
 ADD ./docker/supervisord/php5-fpm.conf /etc/supervisor/conf.d/php5-fpm.conf
 
 ADD ./ /var/www
+
+RUN (cd /var/www && curl -sS https://getcomposer.org/installer | php && php composer.phar install)
 
 EXPOSE 80 9001
 

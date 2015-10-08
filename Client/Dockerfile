@@ -6,9 +6,13 @@ RUN echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/a
 RUN apt-get update -y
 
 RUN apt-get install vim gcc make re2c libpcre3-dev autoconf autogen intltool libtool git php5-dev php5-fpm supervisor curl -y
-RUN cd /opt && git clone --depth=1 https://github.com/json-c/json-c.git && cd json-c && sh autogen.sh && ./configure && make && make install
 
-RUN cd /opt && git clone git://github.com/phalcon/cphalcon.git && cd cphalcon/build && git checkout phalcon-v2.0.7  && ./install
+ADD https://github.com/json-c/json-c/archive/master.tar.gz /opt/json-c.tar.gz
+RUN (cd /opt && mkdir json-c && tar -xf json-c.tar.gz -C json-c --strip-components=1 && rm json-c.tar.gz)
+RUN (cd /opt/json-c && sh autogen.sh && ./configure && make && make install)
+
+ADD https://github.com/phalcon/cphalcon/archive/phalcon-v2.0.8.tar.gz /opt/cphalcon.tar.gz
+RUN (cd /opt && mkdir cphalcon && tar -xf cphalcon.tar.gz -C cphalcon --strip-components=1 && rm cphalcon.tar.gz && cd /opt/cphalcon/build && ./install)
 
 RUN apt-get install -y ca-certificates nginx && \
     rm -rf /var/lib/apt/lists/*

@@ -1,30 +1,34 @@
 es:
   image: madkom/eventstore-docker:latest
-#  Your data need to be placed in /data, or this value need to be changed to your current working dir
   volumes:
    - /data/EventStore/data/db:/data/db
    - /data/EventStore/data/logs:/data/logs
 client:
   image: madkom/event-sourcing-php-client:latest
-#  Your data need to be placed in /data, or this value need to be changed to your current working dir
   links:
     - es:eventstore
-  labels:
-    - "io.rancher.sidekicks:es"
-clientlb:
+banking:
+  image: madkom/event-sourcing-php-banking:latest
+  volumes:
+    - /data/Banking:/var/www
+  links:
+    - es:eventstore
+applb:
   ports:
     - 80:80
+    - 443:443
   restart: always
   tty: true
   image: rancher/load-balancer-service
   links:
     - client:client
   stdin_open: true
-#banking:
-#  build: Banking
-#  ports:
-#    - "3003:80"
-#  volumes:
-#    - ./Banking:/var/www
-#  links:
-#    - es
+#  Router forwards host's packets to internal loadbalancer
+router:
+  image: madkom/router:latest
+  ports:
+    - 3000:80
+  environment:
+    - FORWARD[1]=80:applb:80
+  links:
+    - applb:applb

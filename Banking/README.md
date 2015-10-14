@@ -1,5 +1,4 @@
-## Banking Application
-
+## Banking Application 
 
 ### About the layers
 

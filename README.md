@@ -28,7 +28,7 @@ Blocked user can't do anything in the system.
 Blocked user can be reactivated, then he becomes normal user, with all operations on.
 Blocked account should not be able to transfer any money out. Transfer in, should be still allowed.
 
-User can become VIP, then he receives extra 50$.
+User can become VIP.
 
 There should be possibility to see whole user history (changes over time)
 

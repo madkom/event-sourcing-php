@@ -1,0 +1,4 @@
+suites:
+  banking:
+    namespace: Madkom\ES\Banking
+    psr4_prefix: Madkom\ES\Banking

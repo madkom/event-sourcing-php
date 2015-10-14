@@ -2,7 +2,7 @@
 
 ### About the project
 
-The goal of the project is to provide example micro-service powered by event sourcing architecture. 
+The goal of the project is to provide example of micro-service (distributed) architecture powered by event sourcing. 
 
 There are two main applications.
 Read more about story around applications in `Domain Scenarios` section
@@ -14,6 +14,10 @@ Written with `DDD` style, using `Event Sourcing` with `CQRS` (part)
 [Client](https://github.com/dgafka/event-sourcing-php/blob/develop/Client/README.md) writes all events to [Event Store](https://github.com/dgafka/event-sourcing-php/blob/develop/EventStore/README.md).
     
 #### Banking
+
+Application for money management. 
+Written with clean `DDD` and Objective Oriented Mapper.
+[Banking](https://github.com/madkom/event-sourcing-php/blob/feature/rancher/Banking/README.md)
 
 ### Domain Scenarios ###
 When user is created in system, account associated with him is created also.

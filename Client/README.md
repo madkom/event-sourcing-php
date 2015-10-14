@@ -11,6 +11,7 @@ It stores all events in [EventStore](http://docs.geteventstore.com/).
 
 `Domain` - Most important layer in the application. Should contain high cohesion and be open for extending closed for modification.
 All classes should hide their internal behaviour and abstract logic which is not revealed yet or actions, which going to be handle by 3rd party.
+Client domain layer is based on event sourcing.
  
 `Application` - Application layers act as place, which glue building blocks from domain layer together.
  What does it mean is, that it should take building blocks, which are necessary to complete some action and use them.

@@ -108,11 +108,11 @@ class Banking implements \Madkom\ES\Banking\Application\API\Banking
 
         $account->debit($this->transferFactory, new AccountID($toAccount), new Money($money));
 
+        $this->accountRepository->save($account);
+
         foreach($account->getUncommittedEvents() as $event) {
             $this->domainEventPublisher->publish($event);
         }
-
-        $this->accountRepository->save($account);
     }
 
     /**

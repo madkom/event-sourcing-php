@@ -1,9 +1,10 @@
 <?php
 
-namespace Madkom\ES\Banking\Worker;
+namespace Madkom\ES\Banking\UI\Worker\External;
 
 use Madkom\EventStore\Client\Application\Api\EventStore;
 use Madkom\EventStore\Client\Domain\Socket\Data\SubscribeToStream;
+use Madkom\EventStore\Client\Domain\Socket\Message\Credentials;
 use Madkom\EventStore\Client\Domain\Socket\Message\MessageType;
 use Madkom\EventStore\Client\Domain\Socket\Message\SocketMessage;
 use Madkom\EventStore\Client\Infrastructure\InMemoryLogger;
@@ -47,16 +48,25 @@ class SynchronizeEvents
                     echo "I response to ES heartbeat request\n";
                 });
 
+                $eventStore->addAction(MessageType::SUBSCRIBE_TO_STREAM, function($data){
+                    var_dump($data);
+                });
+
+
 //                $eventStore->addAction(MessageType::)
 
                 $eventStore->run();
 
-//                $socketData = new SubscribeToStream();
-//                $socketData->setResolveLinkTos(true);
-//                $socketData->setEventStreamId('');
-//
-//
-//                $eventStore->sendMessage(new SocketMessage(MessageType::SUBSCRIBE_TO_STREAM, null, ))
+                $socketData = new SubscribeToStream();
+                $socketData->setResolveLinkTos(true);
+                $socketData->setEventStreamId('');
+
+                $eventStore->sendMessage(new SocketMessage(
+                    new MessageType(MessageType::SUBSCRIBE_TO_STREAM),
+                    null,
+                    null,
+                    new Credentials('admin', 'changeit')
+                ));
             });
 
         });

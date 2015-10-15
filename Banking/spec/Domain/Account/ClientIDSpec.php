@@ -15,9 +15,10 @@ use Prophecy\Argument;
 class ClientIDSpec extends ObjectBehavior
 {
 
-    function let(ClientID $clientID)
+    function let()
     {
-        $this->beConstructedWith($clientID, 100);
+        $clientID = '100';
+        $this->beConstructedWith($clientID);
     }
 
     function it_is_initializable()

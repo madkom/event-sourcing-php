@@ -11,9 +11,9 @@
   ],
   "require": {
     "madkom/eventstore-client": "0.8.*",
+    "react/socket-client": "v0.4.3",
     "TrafficCophp/ByteBuffer": "dev-master",
-    "jms/serializer": "1.0.0",
-    "react/socket-client": "v0.4.3"
+    "ramsey/uuid": "*"
   },
   "require-dev": {
     "phpspec/phpspec": "2.2.*"

@@ -10,11 +10,15 @@ namespace Madkom\ES\Banking\Domain\Account;
 class ClientID
 {
 
+    /** @var  string */
+    private $ID;
 
-
-
-    public function __construct($argument1, $argument2)
+    /**
+     * @param string $ID
+     */
+    public function __construct($ID)
     {
-        // TODO: write logic here
+        $this->ID = $ID;
     }
+
 }

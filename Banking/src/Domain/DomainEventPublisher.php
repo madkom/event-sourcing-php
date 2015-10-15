@@ -2,7 +2,6 @@
 
 namespace Madkom\ES\Banking\Domain;
 
-use Dgafka\ES\Client\SharedKernel\Domain\DomainEvent;
 
 /**
  * Interface DomainEventPublisher

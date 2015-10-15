@@ -24,4 +24,14 @@ class AccountID
         $this->accountID = $accountID;
     }
 
+    /**
+     * Returns account's ID
+     *
+     * @return string
+     */
+    public function ID()
+    {
+        return $this->accountID;
+    }
+
 }

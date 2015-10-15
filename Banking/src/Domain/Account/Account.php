@@ -2,7 +2,9 @@
 
 namespace Madkom\ES\Banking\Domain\Account;
 
+use Madkom\ES\Banking\Domain\DomainEvent;
 use Madkom\ES\Banking\Domain\DomainException;
+use Madkom\ES\Banking\Domain\EventBasedAggregate;
 use Madkom\ES\Banking\Domain\Money;
 
 /**
@@ -10,8 +12,11 @@ use Madkom\ES\Banking\Domain\Money;
  * @package Madkom\ES\Banking\Application\Account
  * @author  Dariusz Gafka <d.gafka@madkom.pl>
  */
-class Account
+class Account implements EventBasedAggregate
 {
+
+    /** @var  AccountID */
+    private $accountID;
 
     /** @var ClientID  */
     private $clientID;
@@ -25,13 +30,18 @@ class Account
     /** @var  bool Account status - active not active */
     private $active;
 
+    /** @var array|DomainEvent[] */
+    private $uncommitedEvents = [];
+
     /**
-     * @param ClientID $clientID
-     * @param Money    $money
-     * @param bool     $active
+     * @param AccountID $accountID
+     * @param ClientID  $clientID
+     * @param Money     $money
+     * @param bool      $active
      */
-    public function __construct(ClientID $clientID, Money $money, $active)
+    public function __construct(AccountID $accountID, ClientID $clientID, Money $money, $active)
     {
+        $this->accountID = $accountID;
         $this->clientID = $clientID;
         $this->money    = $money;
         $this->active = $active;
@@ -53,11 +63,14 @@ class Account
         }
 
         if(!$this->isActive()) {
-            throw new DomainException("Can't transfer money out when ");
+            throw new DomainException("Can't transfer money out when account is not activated.");
         }
 
         $this->money = $this->money->subtract($money);
         $this->transfers[] = $transferFactory->create(TransferType::SENT, $toAccount, $money);
+
+        $dateTime = new \DateTime();
+        $this->uncommitedEvents[] = new MoneyTransferredEvent($this->accountID->ID(), $toAccount->ID(), $money->amount(), $dateTime->format('Y-m-d H:i:s'));
     }
 
     /**
@@ -97,6 +110,17 @@ class Account
     private function isActive()
     {
         return $this->active;
+    }
+
+    /**
+     * @return array|DomainEvent[]
+     */
+    public function getUncommittedEvents()
+    {
+        $events = $this->uncommitedEvents;
+        $this->uncommitedEvents = [];
+
+        return $events;
     }
 
 }

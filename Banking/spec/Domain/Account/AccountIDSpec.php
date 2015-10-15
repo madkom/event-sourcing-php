@@ -29,4 +29,9 @@ class AccountIDSpec extends ObjectBehavior
         $this->shouldHaveType('Madkom\ES\Banking\Domain\Account\AccountID');
     }
 
+    function it_should_return_id_was_created_with()
+    {
+        $this->ID()->shouldReturn($this->accountID);
+    }
+
 }

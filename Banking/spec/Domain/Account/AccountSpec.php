@@ -22,11 +22,12 @@ class AccountSpec extends ObjectBehavior
     /** @var  Money */
     private $accountMoney;
 
-    function let(ClientID $clientID, Money $money)
+    function let(AccountID $accountID, ClientID $clientID, Money $money)
     {
         $this->accountMoney = $money;
+        $accountID->ID()->willReturn('2');
 
-        $this->beConstructedWith($clientID, $money, true);
+        $this->beConstructedWith($accountID, $clientID, $money, true);
     }
 
     function it_is_initializable()
@@ -39,9 +40,18 @@ class AccountSpec extends ObjectBehavior
         $this->accountMoney->moreOrEqualThan($money)->willReturn(true);
         $this->accountMoney->subtract($money)->shouldBeCalledTimes(1);
 
+        $accountID->ID()->willReturn('5');
+        $money->amount()->willReturn(100);
+
         $transferFactory->create(TransferType::SENT, $accountID, $money)->shouldBeCalledTimes(1);
 
         $this->debit($transferFactory, $accountID, $money);
+        $uncommittedEvents = $this->getUncommittedEvents();
+        $uncommittedEvents->shouldHaveCount(1);
+        $uncommittedEvents[0]->shouldHaveType('Madkom\ES\Banking\Domain\Account\MoneyTransferredEvent');
+
+        $uncommittedEvents = $this->getUncommittedEvents();
+        $uncommittedEvents->shouldHaveCount(0);
     }
 
     function it_should_not_debit_if_not_enough_money(TransferFactory $transferFactory, Money $money, AccountID $accountID)
@@ -69,6 +79,9 @@ class AccountSpec extends ObjectBehavior
 
         $this->activate();
         $this->accountMoney->subtract($money)->shouldBeCalledTimes(1);
+        $money->amount()->willReturn(5);
+        $accountID->ID()->willReturn('100');
+
         $transferFactory->create(TransferType::SENT, $accountID, $money)->shouldBeCalledTimes(1);
 
         $this->debit($transferFactory, $accountID, $money);

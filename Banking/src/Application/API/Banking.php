@@ -38,7 +38,7 @@ interface Banking
     public function deactivateAccount($accountID);
 
     /**
-     * Transfer money from one account to another
+     * Transfer money out to chosen account
      *
      * @param string $fromAccount
      * @param string $toAccount
@@ -46,6 +46,17 @@ interface Banking
      *
      * @return void
      */
-    public function transfer($fromAccount, $toAccount, $money);
+    public function transferOut($fromAccount, $toAccount, $money);
+
+    /**
+     * Transfer money in to chosen account
+     *
+     * @param $fromAccount
+     * @param $toAccount
+     * @param $money
+     *
+     * @return void
+     */
+    public function transferIn($fromAccount, $toAccount, $money);
 
 }

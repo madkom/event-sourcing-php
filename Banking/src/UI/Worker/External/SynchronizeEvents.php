@@ -3,6 +3,7 @@
 namespace Madkom\ES\Banking\UI\Worker\External;
 
 use Madkom\EventStore\Client\Application\Api\EventStore;
+use Madkom\EventStore\Client\Domain\Socket\Data\StreamEventAppeared;
 use Madkom\EventStore\Client\Domain\Socket\Data\SubscribeToStream;
 use Madkom\EventStore\Client\Domain\Socket\Message\Credentials;
 use Madkom\EventStore\Client\Domain\Socket\Message\MessageType;
@@ -44,29 +45,32 @@ class SynchronizeEvents
             $resolvedConnection->then(function(Stream $stream){
                 $eventStore = new EventStore(new ReactStream($stream), new InMemoryLogger());
 
-                $eventStore->addAction(MessageType::HEARTBEAT_REQUEST, function() {
-                    echo "I response to ES heartbeat request\n";
+                $eventStore->addAction(MessageType::STREAM_EVENT_APPEARED, function(SocketMessage $message){
+                    /** @var StreamEventAppeared $streamEventAppeared */
+                    $streamEventAppeared = $message->getData();
+                    $eventRecord = $streamEventAppeared->getEvent()->getEvent();
+
+                    if(!($eventRecord->getEventStreamId() === '$stats-0.0.0.0:2113')) {
+                        $data = json_decode($eventRecord->getData());
+                        $aggregateID = $data['uuid'];
+
+
+                    }
                 });
-
-                $eventStore->addAction(MessageType::SUBSCRIBE_TO_STREAM, function($data){
-                    var_dump($data);
-                });
-
-
-//                $eventStore->addAction(MessageType::)
 
                 $eventStore->run();
 
                 $socketData = new SubscribeToStream();
-                $socketData->setResolveLinkTos(true);
+                $socketData->setResolveLinkTos(false);
                 $socketData->setEventStreamId('');
 
                 $eventStore->sendMessage(new SocketMessage(
                     new MessageType(MessageType::SUBSCRIBE_TO_STREAM),
                     null,
-                    null,
+                    $socketData,
                     new Credentials('admin', 'changeit')
                 ));
+
             });
 
         });

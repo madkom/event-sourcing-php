@@ -7,12 +7,17 @@ client:
   image: madkom/event-sourcing-php-client:latest
   links:
     - es:eventstore
+bankingdatabase:
+  image: postgres:9.4
+  environment:
+    - POSTGRES_PASSWORD=mypassword
 banking:
   image: madkom/event-sourcing-php-banking:latest
   volumes:
     - /data/Banking:/var/www
   links:
     - es:eventstore
+    - bankingdatabase:database
 applb:
   ports:
     - 80:80

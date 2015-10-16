@@ -13,7 +13,9 @@
     "madkom/eventstore-client": "0.8.*",
     "react/socket-client": "v0.4.3",
     "TrafficCophp/ByteBuffer": "dev-master",
-    "ramsey/uuid": "*"
+    "ramsey/uuid": "*",
+    "doctrine/orm": "2.5.1",
+    "boldtrn/jsonb-bundle": "~1.0"
   },
   "require-dev": {
     "phpspec/phpspec": "2.2.*"

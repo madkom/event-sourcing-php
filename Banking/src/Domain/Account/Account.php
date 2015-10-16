@@ -33,6 +33,9 @@ class Account implements EventBasedAggregate
     /** @var array|DomainEvent[] */
     private $uncommitedEvents = [];
 
+    /** @var  int */
+    private $version;
+
     /**
      * @param AccountID $accountID
      * @param ClientID  $clientID

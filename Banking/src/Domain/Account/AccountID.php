@@ -13,15 +13,15 @@ class AccountID
     /**
      * @var string
      */
-    private $accountID;
+    private $ID;
 
     /**
-     * @param string $accountID
+     * @param string $ID
      */
-    public function __construct($accountID)
+    public function __construct($ID)
     {
 
-        $this->accountID = $accountID;
+        $this->ID = $ID;
     }
 
     /**
@@ -31,7 +31,7 @@ class AccountID
      */
     public function ID()
     {
-        return $this->accountID;
+        return $this->ID;
     }
 
 }

@@ -6,19 +6,15 @@
     <entity name="Madkom\ES\Banking\Domain\Account\Account">
 
         <indexes>
-            <index name="account_id_idx" columns="account_id"/>
             <index name="client_id_idx" columns="client_id"/>
         </indexes>
 
-        <unique-constraints>
-            <unique-constraint columns="accountID,user_email" name="search_idx" />
-        </unique-constraints>
-
-
-        <field name="accountID" column="account_id" type="string" length="32" unique="true" version="true" />
-        <field name="clientID" column="client_id" type="string" length="32" unique="true" />
-        <field name=""
+        <embedded name="accountID" class="Madkom\ES\Banking\Domain\Account\AccountID" />
+        <embedded name="clientID" class="Madkom\ES\Banking\Domain\Account\ClientID" />
+        <field name="money" column="money" type="jsonb"/>
+        <field name="transfers" column="transfers" type="jsonb"/>
         <field name="active" column="active" type="boolean" length="32" unique="true" />
+        <field name="version" column="version" type="integer" version="true"/>
 
     </entity>
 

@@ -5,7 +5,7 @@
 
     <embeddable name="Madkom\ES\Banking\Domain\Account\AccountID">
 
-        <id name="ID" column="account_id" length="32"/>
+        <id name="ID" length="32"/>
 
     </embeddable>
 

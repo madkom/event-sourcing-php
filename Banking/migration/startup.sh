@@ -1,0 +1,1 @@
+docker exec -it $(docker ps -a | grep "madkom/event-sourcing-php-banking:latest"  | grep '^\S*' -o) php /var/www/migration/installation.php

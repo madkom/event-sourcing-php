@@ -5,7 +5,7 @@
 
     <embeddable name="Madkom\ES\Banking\Domain\Account\ClientID">
 
-        <field name="ID" column="client_id" type="string" length="32"/>
+        <field name="ID" type="string" length="32"/>
 
     </embeddable>
 </doctrine-mapping>

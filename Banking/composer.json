@@ -14,7 +14,7 @@
     "react/socket-client": "v0.4.3",
     "TrafficCophp/ByteBuffer": "dev-master",
     "ramsey/uuid": "*",
-    "doctrine/orm": "2.4.*",
+    "doctrine/orm": "2.5.*",
     "boldtrn/jsonb-bundle": "~1.0",
     "symfony/console": "2.7.*"
   },

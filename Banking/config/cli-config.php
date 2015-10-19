@@ -1,6 +1,6 @@
 <?php
 
-$paths = array('../src/UI/Bundle/Configuration/Doctrine');
+$paths = array(__DIR__ . '/../src/UI/Bundle/Configuration/Doctrine');
 $isDevMode = true;
 
 $dbParams = array(
@@ -22,10 +22,4 @@ $connection       = $entityManager->getConnection();
 $databasePlatform = $connection->getDatabasePlatform();
 $databasePlatform->registerDoctrineTypeMapping('jsonb', 'jsonb');
 
-// Any way to access the EntityManager from  your application
-$em = $entityManager;
-
-$helperSet = new \Symfony\Component\Console\Helper\HelperSet(array(
-    'db' => new \Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper($em->getConnection()),
-    'em' => new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($em)
-));
+return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet($entityManager);

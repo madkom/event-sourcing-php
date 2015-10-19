@@ -1,10 +1,10 @@
 <?php
-require('../vendor/autoload.php');
+require(__DIR__ . '/../vendor/autoload.php');
 
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
-$paths = array('../src/UI/Bundle/Configuration/Doctrine');
+$paths = array(__DIR__ . '/../src/UI/Bundle/Configuration/Doctrine');
 $isDevMode = true;
 
 $dbParams = array(

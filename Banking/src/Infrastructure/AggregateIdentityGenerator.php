@@ -1,6 +1,6 @@
 <?php
 
-namespace Madkom\ES\Banking\Domain\Infrastructure;
+namespace Madkom\ES\Banking\Infrastructure;
 
 use Rhumsaa\Uuid\Uuid;
 

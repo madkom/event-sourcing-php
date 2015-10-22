@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<serializer>
+    <class name="Madkom.ES.Banking.Domain.Account.TransferCollection" exclusion-policy="ALL" xml-root-name="account" exclude="true"
+           accessor-order="custom" custom-accessor-order="propertyName1,propertyName2,...,propertyNameN"
+           access-type="public_method" discriminator-field-name="type"  read-only="false">
+        <xml-namespace prefix="atom" uri="http://www.w3.org/2005/Atom"/>
+        <discriminator-class value="some-value">Account</discriminator-class>
+        <property name="elements"
+                  expose="true"
+                  type="array<Madkom\ES\Banking\Domain\Account\Transfer>"
+                  serialized-name="elements"
+                  xml-attribute="true"
+                  read-only="false"
+                  max-depth="10"
+                >
+            <!-- You can also specify the type as element which is necessary if
+                 your type contains "<" or ">" characters. -->
+            <xml-list inline="true" entry-name="transfer" />
+            <xml-element cdata="false" namespace="http://www.w3.org/2005/Atom"/>
+        </property>
+    </class>
+</serializer>

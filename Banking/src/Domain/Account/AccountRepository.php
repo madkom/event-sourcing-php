@@ -20,6 +20,15 @@ interface AccountRepository
     public function getByID(AccountID $accountID);
 
     /**
+     * Retrieves account from data store
+     *
+     * @param ClientID $clientID
+     *
+     * @return Account
+     */
+    public function getByClientID(ClientID $clientID);
+
+    /**
      * Saves account
      *
      * @param Account $account

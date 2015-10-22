@@ -27,7 +27,7 @@ class AccountSpec extends ObjectBehavior
         $this->accountMoney = $money;
         $accountID->ID()->willReturn('2');
 
-        $this->beConstructedWith($accountID, $clientID, $money, true);
+        $this->beConstructedWith($accountID, $clientID, $money, true, 1);
     }
 
     function it_is_initializable()

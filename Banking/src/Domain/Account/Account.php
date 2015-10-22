@@ -2,6 +2,7 @@
 
 namespace Madkom\ES\Banking\Domain\Account;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Madkom\ES\Banking\Domain\DomainEvent;
 use Madkom\ES\Banking\Domain\DomainException;
 use Madkom\ES\Banking\Domain\EventBasedAggregate;
@@ -24,7 +25,7 @@ class Account implements EventBasedAggregate
     /** @var Money  */
     private $money;
 
-    /** @var  array|Transfer[] */
+    /** @var  ArrayCollection|Transfer[] */
     private $transfers;
 
     /** @var  bool Account status - active not active */
@@ -41,13 +42,16 @@ class Account implements EventBasedAggregate
      * @param ClientID  $clientID
      * @param Money     $money
      * @param bool      $active
+     * @param int       $version
      */
-    public function __construct(AccountID $accountID, ClientID $clientID, Money $money, $active)
+    public function __construct(AccountID $accountID, ClientID $clientID, Money $money, $active, $version)
     {
         $this->accountID = $accountID;
         $this->clientID = $clientID;
         $this->money    = $money;
         $this->active = $active;
+        $this->version = $version;
+        $this->transfers = new ArrayCollection();
     }
 
     /**
@@ -70,7 +74,7 @@ class Account implements EventBasedAggregate
         }
 
         $this->money = $this->money->subtract($money);
-        $this->transfers[] = $transferFactory->create(TransferType::SENT, $toAccount, $money);
+        $this->transfers->add($transferFactory->create(TransferType::SENT, $toAccount, $money));
 
         $dateTime = new \DateTime();
         $this->uncommitedEvents[] = new MoneyTransferredEvent($this->accountID->ID(), $toAccount->ID(), $money->amount(), $dateTime->format('Y-m-d H:i:s'));
@@ -86,7 +90,11 @@ class Account implements EventBasedAggregate
     public function credit(TransferFactory $transferFactory, AccountID $fromAccount, Money $money)
     {
         $this->money = $this->money->add($money);
-        $this->transfers[] = $transferFactory->create(TransferType::RECEIVED, $fromAccount, $money);
+
+        //doctrine tracking policy checks if object === object. Since it's object it always sees it as unchanged
+        //http://stackoverflow.com/questions/11084209/how-to-force-doctrine-to-update-array-type-fields
+        $this->transfers = clone $this->transfers;
+        $this->transfers->add($transferFactory->create(TransferType::RECEIVED, $fromAccount, $money));
     }
 
     /**
@@ -103,6 +111,16 @@ class Account implements EventBasedAggregate
     public function deactivate()
     {
         $this->active = false;
+    }
+
+    /**
+     * Return aggregate version
+     *
+     * @return int
+     */
+    public function version()
+    {
+        return $this->version;
     }
 
     /**

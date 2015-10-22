@@ -2,17 +2,23 @@
 
 namespace Madkom\ES\Banking\Domain;
 
-use Madkom\ES\Banking\Domain\DomainException;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
  * Class Money - Normally it would be in SharedKernel
  * @package Madkom\ES\Banking\Domain\Account
  * @author  Dariusz Gafka <d.gafka@madkom.pl>
+ * @ExclusionPolicy("NONE")
  */
 class Money
 {
 
-    /** @var int  */
+    /**
+     * @var int
+     *
+     * @Type("integer")
+     */
     private $amount;
 
     /**

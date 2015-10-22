@@ -1,35 +1,37 @@
 <?php
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+error_reporting(-1);
+
 require(__DIR__ . '/../vendor/autoload.php');
 
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
+$entityManager = \Madkom\ES\Banking\UI\Bundle\App\DoctrineEntityManager::getInstance();
 
-$paths = array(__DIR__ . '/../src/UI/Bundle/Configuration/Doctrine');
-$isDevMode = true;
+//$accountFactory = new \Madkom\ES\Banking\Domain\Account\AccountFactory();
+//$account = $accountFactory->create(new \Madkom\ES\Banking\Domain\Account\AccountID('dsad'), new \Madkom\ES\Banking\Domain\Account\ClientID('2'));
+//$entityManager->persist($account);
+//$entityManager->flush();
+//
 
-$dbParams = array(
-    'host'      => 'database',
-    'driver'    => 'pdo_pgsql',
-    'user'      => 'postgres',
-    'password'  => 'mypassword',
-    'dbname'    => 'postgres'
-);
+//
+$accountRepository = new \Madkom\ES\Banking\Infrastructure\Domain\AccountRepository();
+$diContainer = \Madkom\ES\Banking\UI\Bundle\App\DependencyContainer::getInstance();
 
-$config = Setup::createXMLMetadataConfiguration($paths, $isDevMode);
-$config->addCustomStringFunction('JSONB_AG', 'Boldtrn\JsonbBundle\Query\JsonbAtGreater');
-$config->addCustomStringFunction('JSONB_HGG', 'Boldtrn\JsonbBundle\Query\JsonbHashGreaterGreater');
-$config->addCustomStringFunction('JSONB_EX', 'Boldtrn\JsonbBundle\Query\JsonbExistence');
-\Doctrine\DBAL\Types\Type::addType('jsonb', '\Boldtrn\JsonbBundle\Types\JsonbArrayType');
+/** @var \Madkom\ES\Banking\Application\API\Banking $bankingAPI */
+$bankingAPI = $diContainer->get('banking.api');
 
-$entityManager    = EntityManager::create($dbParams, $config);
-$connection       = $entityManager->getConnection();
-$databasePlatform = $connection->getDatabasePlatform();
-$databasePlatform->registerDoctrineTypeMapping('jsonb', 'jsonb');
+//$bankingAPI->activateAccount('2');
 
-$accountFactory = new \Madkom\ES\Banking\Domain\Account\AccountFactory();
-$account = $accountFactory->create(new \Madkom\ES\Banking\Domain\Account\AccountID('dsad'), new \Madkom\ES\Banking\Domain\Account\ClientID('2'));
-$entityManager->persist($account);
-$entityManager->flush();
 
-$tmp = new \Madkom\ES\Banking\UI\Worker\External\SynchronizeEvents();
-$tmp->run();
+//$accountFactory = new \Madkom\ES\Banking\Domain\Account\AccountFactory();
+//$account = $accountFactory->create(new \Madkom\ES\Banking\Domain\Account\AccountID(13), new \Madkom\ES\Banking\Domain\Account\ClientID('5'));
+//$account->credit(new \Madkom\ES\Banking\Domain\Account\TransferFactory(), new \Madkom\ES\Banking\Domain\Account\AccountID('3'), new \Madkom\ES\Banking\Domain\Money(200));
+//
+//$accountRepository->save($account);
+
+$account = $accountRepository->getByID(new \Madkom\ES\Banking\Domain\Account\AccountID('13'));
+
+$account->credit(new \Madkom\ES\Banking\Domain\Account\TransferFactory(), new \Madkom\ES\Banking\Domain\Account\AccountID('3'), new \Madkom\ES\Banking\Domain\Money(200));
+
+$accountRepository->save($account);
+

@@ -9,7 +9,7 @@ Read more about story around applications in `Domain Scenarios` section
 
 #### Client
     
-Application for user registration and managing.
+Application for client registration and managing.
 Written with `DDD` style, using `Event Sourcing` with `CQRS` (part)
 [Client](https://github.com/dgafka/event-sourcing-php/blob/develop/Client/README.md) writes all events to [Event Store](https://github.com/dgafka/event-sourcing-php/blob/develop/EventStore/README.md).
     
@@ -20,21 +20,22 @@ Written with clean `DDD` and Objective Oriented Mapper.
 [Banking](https://github.com/madkom/event-sourcing-php/blob/feature/rancher/Banking/README.md)
 
 ### Domain Scenarios ###
-When user is created in system, account associated with him is created also.
+When client is created in system, account associated with him is created also.
+One client can only have one account.
 Whenever new account is created it should receive new member bonus equal to 100$.
 
-Users can transfer money between accounts, which result in debit user which started transaction and credit the one he chose send money to.
+Users can transfer money between accounts, which result in debit client which started transaction and credit the one he chose send money to.
 All transfers should be visible in transfer history.
-All transfers should contain user data saved at the time when transfer was made.
+All transfers should contain client data saved at the time when transfer was made.
 
 User can be blocked.
-Blocked user can't do anything in the system.
-Blocked user can be reactivated, then he becomes normal user, with all operations on.
+Blocked client can't do anything in the system.
+Blocked client can be reactivated, then he becomes normal client, with all operations on.
 Blocked account should not be able to transfer any money out. Transfer in, should be still allowed.
 
 User can become VIP.
 
-There should be possibility to see whole user history (changes over time)
+There should be possibility to see whole client history (changes over time)
 
 ### Requirements
 
@@ -62,4 +63,4 @@ To run the project you need to have installed
 4. Run `composer install` inside `Banking` and `Client` folders
 5. Create `access key` on Rancher
 6. Run with your access key information `rancher-compose --access-key {access_key} --secret-key {secret_key} --url {url} -p event_sourcing up`
-7. Run `sh startup.sh` from Banking/migration catalog.
+7. Wait 2-3 minutes for everything to start and then run `sh startup.sh` from Banking/migration catalog.

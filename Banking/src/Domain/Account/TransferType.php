@@ -3,11 +3,15 @@
 namespace Madkom\ES\Banking\Domain\Account;
 
 use Madkom\ES\Banking\Domain\DomainException;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+
 
 /**
  * Class TransferType
  * @package Madkom\ES\Banking\Domain\Account
  * @author  Dariusz Gafka <d.gafka@madkom.pl>
+ * @ExclusionPolicy("NONE")
  */
 class TransferType
 {
@@ -19,7 +23,11 @@ class TransferType
     /** Transfer was received as a bonus */
     const BONUS = 2;
 
-    /** @var string  */
+    /**
+     * @var string
+     *
+     * @Type("integer")
+     */
     private $type;
 
     /**

@@ -26,6 +26,9 @@ class ClientIDSpec extends ObjectBehavior
         $this->shouldHaveType('Madkom\ES\Banking\Domain\Account\ClientID');
     }
 
-
+    function it_should_return_id()
+    {
+        $this->ID()->shouldReturn('100');
+    }
 
 }

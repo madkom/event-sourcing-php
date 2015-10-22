@@ -1,6 +1,6 @@
 <?php
 
-namespace Madkom\ES\Banking\Domain\Infrastructure\Domain;
+namespace Madkom\ES\Banking\Infrastructure\Domain;
 
 use Madkom\ES\Banking\Domain\DomainEvent;
 use Madkom\ES\Banking\Domain\DomainEventSubscriber;

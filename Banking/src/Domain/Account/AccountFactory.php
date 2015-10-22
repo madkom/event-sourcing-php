@@ -22,7 +22,7 @@ class AccountFactory
      */
     public function create(AccountID $accountID, ClientID $clientID)
     {
-        return new Account($accountID, $clientID, new Money(100), true);
+        return new Account($accountID, $clientID, new Money(100), true, 1);
     }
 
 }

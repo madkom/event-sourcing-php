@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="account.repository" class="Madkom\ES\Banking\Infrastructure\Domain\AccountRepository"/>
+        <service id="domain.event.publisher" class="Madkom\ES\Banking\Infrastructure\Domain\DomainEventPublisher"/>
+        <service id="account.factory" class="Madkom\ES\Banking\Domain\Account\AccountFactory"/>
+        <service id="transfer.factory" class="Madkom\ES\Banking\Domain\Account\TransferFactory"/>
+
+        <service id="banking.api" class="Madkom\ES\Banking\Application\Internal\Banking">
+            <argument type="service" id="account.repository"/>
+            <argument type="service" id="domain.event.publisher"/>
+            <argument type="service" id="account.factory"/>
+            <argument type="service" id="transfer.factory"/>
+        </service>
+    </services>
+</container>

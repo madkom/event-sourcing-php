@@ -21,4 +21,12 @@ class ClientID
         $this->ID = $ID;
     }
 
+    /**
+     * @return string
+     */
+    public function ID()
+    {
+        return $this->ID;
+    }
+
 }

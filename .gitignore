@@ -5,6 +5,10 @@ Client/vendor/
 Client/bin/
 Banking/vendor/
 Banking/bin/
+Banking/src/UI/Bundle/ORM/Proxy
+!Banking/src/UI/Bundle/ORM/Proxy/.gitkeep
+Banking/src/UI/Bundle/Resources/cache
+!Banking/src/UI/Bundle/Resources/cache/.gitkeep
 Consul/data/
 !Consul/data/.gitkeep
 /vendor/

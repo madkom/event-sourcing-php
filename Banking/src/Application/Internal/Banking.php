@@ -8,7 +8,7 @@ use Madkom\ES\Banking\Domain\Account\AccountRepository;
 use Madkom\ES\Banking\Domain\Account\ClientID;
 use Madkom\ES\Banking\Domain\Account\TransferFactory;
 use Madkom\ES\Banking\Domain\DomainEventPublisher;
-use Madkom\ES\Banking\Domain\Infrastructure\AggregateIdentityGenerator;
+use Madkom\ES\Banking\Infrastructure\AggregateIdentityGenerator;
 use Madkom\ES\Banking\Domain\Money;
 
 /**
@@ -43,6 +43,7 @@ class Banking implements \Madkom\ES\Banking\Application\API\Banking
      */
     public function __construct(AccountRepository $accountRepository, DomainEventPublisher $domainEventPublisher, AccountFactory $accountFactory, TransferFactory $transferFactory)
     {
+//        In most cases you would probably want to inject DIContainer here and retrieve necessary objects. It will be more lightweight
         $this->accountRepository = $accountRepository;
         $this->accountFactory = $accountFactory;
         $this->transferFactory = $transferFactory;
@@ -58,7 +59,13 @@ class Banking implements \Madkom\ES\Banking\Application\API\Banking
      */
     public function createAccount($clientID)
     {
-        $account = $this->accountFactory->create(new AccountID(AggregateIdentityGenerator::generateID()), new ClientID($clientID));
+        $clientID = new ClientID($clientID);
+
+        if($this->accountRepository->getByClientID($clientID)) {
+            throw new \InvalidArgumentException("Can't create two accounts for {$clientID}");
+        }
+
+        $account = $this->accountFactory->create(new AccountID(AggregateIdentityGenerator::generateID()), $clientID);
 
         $this->accountRepository->save($account);
     }

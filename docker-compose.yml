@@ -11,6 +11,8 @@ bankingdatabase:
   image: postgres:9.4
   environment:
     - POSTGRES_PASSWORD=mypassword
+bankingqueue:
+  image: schickling/beanstalkd:latest
 banking:
   image: madkom/event-sourcing-php-banking:latest
   volumes:
@@ -18,6 +20,7 @@ banking:
   links:
     - es:eventstore
     - bankingdatabase:database
+    - bankingqueue:bankingqueue
 applb:
   ports:
     - 80:80

@@ -2,6 +2,7 @@
 
 namespace Madkom\ES\Banking\Application\Internal;
 
+use Madkom\ES\Banking\Application\Helper\InternalEventSubscriber;
 use Madkom\ES\Banking\Domain\Account\AccountFactory;
 use Madkom\ES\Banking\Domain\Account\AccountID;
 use Madkom\ES\Banking\Domain\Account\AccountRepository;
@@ -101,6 +102,24 @@ class Banking implements \Madkom\ES\Banking\Application\API\Banking
     }
 
     /**
+     * Transfer money in to chosen account
+     *
+     * @param $fromAccount
+     * @param $toAccount
+     * @param $money
+     *
+     * @return void
+     */
+    public function transferIn($fromAccount, $toAccount, $money)
+    {
+        $account = $this->accountRepository->getByID(new AccountID($toAccount));
+
+        $account->credit($this->transferFactory, new AccountID($fromAccount), new Money($money));
+
+        $this->accountRepository->save($account);
+    }
+
+    /**
      * Transfer money out to chosen account
      *
      * @param string $fromAccount
@@ -117,27 +136,12 @@ class Banking implements \Madkom\ES\Banking\Application\API\Banking
 
         $this->accountRepository->save($account);
 
+        //For internal events.
+        $this->domainEventPublisher->subscribe(new InternalEventSubscriber(), 'Madkom\ES\Banking\Domain\Account\MoneyTransferredEvent');
         foreach($account->getUncommittedEvents() as $event) {
             $this->domainEventPublisher->publish($event);
         }
-    }
 
-    /**
-     * Transfer money in to chosen account
-     *
-     * @param $fromAccount
-     * @param $toAccount
-     * @param $money
-     *
-     * @return void
-     */
-    public function transferIn($fromAccount, $toAccount, $money)
-    {
-        $account = $this->accountRepository->getByID(new AccountID($toAccount));
-
-        $account->credit($this->transferFactory, new AccountID($fromAccount), new Money($money));
-
-        $this->accountRepository->save($account);
     }
 
 }

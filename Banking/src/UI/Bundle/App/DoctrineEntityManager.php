@@ -70,7 +70,7 @@ final class DoctrineEntityManager
         Type::addType('transfer', '\Madkom\ES\Banking\UI\Bundle\ORM\Type\TransferType');
 
         $config->setProxyNamespace('Madkom\ES\Banking\UI\Bundle\ORM\Proxy');
-        $config->setProxyDir(__DIR__ . '/../ORM./Proxy');
+        $config->setProxyDir('/tmp');
         //On production it should be off
         $config->setAutoGenerateProxyClasses(true);
 

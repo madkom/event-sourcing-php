@@ -39,7 +39,7 @@ class Serializer
         AnnotationRegistry::registerFile(__DIR__ . '/../../../../vendor/jms/serializer/src/JMS/Serializer/Annotation/Type.php');
 
         $serializerBuilder = SerializerBuilder::create();
-        $serializerBuilder->setCacheDir(__DIR__ . '/../Resources/cache');
+        $serializerBuilder->setCacheDir('/tmp');
         //For production it should be false
         $serializerBuilder->setDebug(true);
 

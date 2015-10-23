@@ -52,29 +52,6 @@ class SynchronizeEvents
 
                     if(!($eventRecord->getEventStreamId() === '$stats-0.0.0.0:2113')) {
 
-                        /**
-                         * array(6) {
-                        ["uuid"]=>
-                        string(36) "03fe6ee4-73d2-11e5-ac20-c6e3e99b27b4"
-                        ["playhead"]=>
-                        int(35)
-                        ["metadata"]=>
-                        array(0) {
-                        }
-                        ["payload"]=>
-                        array(2) {
-                        ["name"]=>
-                        string(4) "test"
-                        ["surname"]=>
-                        string(6) "dasdas"
-                        }
-                        ["recorded_on"]=>
-                        string(32) "2015-10-19T13:02:24.536870+00:00"
-                        ["type"]=>
-                        string(49) "Dgafka.ES.Client.Domain.User.UserChangedDataEvent"
-                        }
-
-                         */
                         $data = json_decode($eventRecord->getData(), true);
                         $aggregateID = $data['uuid'];
 
@@ -85,13 +62,6 @@ class SynchronizeEvents
                         if($data['type'] == 'Dgafka.ES.Client.Domain.User.UserRegisteredEvent') {
                             $bankingAPI->createAccount($aggregateID);
                         }
-
-//                        die('>>>' . $data['type']);
-//                        var_dump($data, $data['type']);
-
-
-//                        $bankingAPI->createAccount($aggregateID);
-
                     }
                 });
 

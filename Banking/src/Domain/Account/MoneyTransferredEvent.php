@@ -2,13 +2,14 @@
 
 namespace Madkom\ES\Banking\Domain\Account;
 
+use Madkom\ES\Banking\Domain\DomainEvent;
+
 /**
  * Class MoneyTransferredEvent
  * @package Madkom\ES\Banking\Domain\Account
  * @author  Dariusz Gafka <d.gafka@madkom.pl>
- * @mixin MoneyTransferredEvent
  */
-class MoneyTransferredEvent
+class MoneyTransferredEvent implements DomainEvent
 {
 
     /** @var string  */

@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS account;
-
 CREATE TABLE IF NOT EXISTS account
 (
     accountid_id VARCHAR(36) PRIMARY KEY,

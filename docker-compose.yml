@@ -1,12 +1,16 @@
 es:
   image: madkom/eventstore-docker:latest
-  volumes:
-   - /data/EventStore/data/db:/data/db
-   - /data/EventStore/data/logs:/data/logs
+clientreaddatabase:
+  image: postgres:9.4
+  environment:
+    - POSTGRES_PASSWORD=mypassword
 client:
   image: madkom/event-sourcing-php-client:latest
+  volumes:
+    - /data/Client:/var/www
   links:
     - es:eventstore
+    - clientreaddatabase:readdb
 bankingdatabase:
   image: postgres:9.4
   environment:

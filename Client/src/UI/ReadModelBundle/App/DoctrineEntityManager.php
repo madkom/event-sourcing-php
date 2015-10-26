@@ -1,6 +1,6 @@
 <?php
 
-namespace Madkom\ES\Banking\UI\Bundle\App;
+namespace Dgafka\ES\Client\UI\ReadModelBundle\App;
 
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
@@ -53,7 +53,7 @@ final class DoctrineEntityManager
         $isDevMode = true;
 
         $dbParams = array(
-            'host'      => 'database',
+            'host'      => 'readdb',
             'driver'    => 'pdo_pgsql',
             'user'      => 'postgres',
             'password'  => 'mypassword',
@@ -61,18 +61,8 @@ final class DoctrineEntityManager
         );
 
         $config = Setup::createXMLMetadataConfiguration($paths, $isDevMode);
-        $config->setCustomStringFunctions([
-            'JSONB_AG'         => 'Boldtrn\JsonbBundle\Query\JsonbAtGreater',
-            'JSONB_HGG'         => 'Boldtrn\JsonbBundle\Query\JsonbHashGreaterGreater',
-            'JSONB_EX'         => 'Boldtrn\JsonbBundle\Query\JsonbExistence'
-        ]);
-        Type::addType('jsonb', '\Boldtrn\JsonbBundle\Types\JsonbArrayType');
-        Type::addType('transfer', '\Madkom\ES\Banking\UI\Bundle\ORM\Type\TransferType');
 
         $entityManager    = EntityManager::create($dbParams, $config);
-        $connection       = $entityManager->getConnection();
-        $databasePlatform = $connection->getDatabasePlatform();
-        $databasePlatform->registerDoctrineTypeMapping('jsonb', 'jsonb');
 
         return $entityManager;
     }

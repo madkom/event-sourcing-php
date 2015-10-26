@@ -1,0 +1,16 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="Dgafka\ES\Client\Domain\User\User" table="account">
+
+        <embedded name="userID" class="Dgafka\ES\Client\Domain\User\UserID" />
+        <embedded name="userData" class="Dgafka\ES\Client\Domain\User\UserData" />
+        <embedded name="status" class="Dgafka\ES\Client\Domain\User\UserStatus" />
+        <field name="vipStatus" column="vip_status" type="boolean"/>
+        <!--<field name="version" type="integer" version="true"/>-->
+
+    </entity>
+
+</doctrine-mapping>

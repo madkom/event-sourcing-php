@@ -5,7 +5,7 @@ RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC64107
 RUN echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list
 RUN apt-get update -y
 
-RUN apt-get install vim gcc make re2c libpcre3-dev autoconf autogen intltool libtool git php5-dev php5-fpm supervisor curl -y
+RUN apt-get install vim gcc make re2c libpcre3-dev autoconf autogen intltool libtool git php5-dev php5-fpm supervisor curl php5-pgsql postgresql-client -y
 
 ADD https://github.com/json-c/json-c/archive/master.tar.gz /opt/json-c.tar.gz
 RUN (cd /opt && mkdir json-c && tar -xf json-c.tar.gz -C json-c --strip-components=1 && rm json-c.tar.gz)

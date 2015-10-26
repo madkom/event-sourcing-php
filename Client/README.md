@@ -27,7 +27,7 @@ In production ready project, should be placed as stand-alone library.
 Which shared between production projects some classes like events, building blocks etc.
 
 
-### Write Model
+### Write Model (REST API)
 
 `register` [POST] - Creates new client in the system.
  

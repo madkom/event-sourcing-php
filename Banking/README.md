@@ -1,5 +1,21 @@
 ## Banking Application 
 
+### About the application
+
+`Banking App` works with `Client App`. 
+It listen for events created by `Client App`. 
+
+#### External Events - comes from Client App to Banking
+
+Whenever new new Client is created new associated account is created in reaction.
+`Madkom\ES\Banking\UI\Worker\External\SynchronizeEvents` take care of synchronization. 
+
+#### Internal Events - comes from Banking to Banking
+
+In reaction for money transfer, worker takes the money and pushes it target account.
+`Madkom\ES\Banking\UI\Worker\Internal\EventHandler` - is responsible for retrieving events and react
+
+
 ### About the layers
 
 `Domain` - Most important layer in the application. Should contain high cohesion and be open for extending closed for modification.
@@ -18,3 +34,14 @@ It may contains web gui/rest/soap or anything, which will help to communicate wi
 `SharedKernel` - For example purposes created within project. 
 In production ready project, should be placed as stand-alone library.
 Which shared between production projects some classes like events, building blocks etc.
+
+
+### Write Model (Rest API)
+
+`transferout` [POST] - Transfers out passed amount of money from one account to account
+    
+    @param "from_account" - From which account money should be taken  
+    @param "to_account" - To which account money should be send
+    @param "money_amount" - 
+    
+    @return void

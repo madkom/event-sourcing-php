@@ -14,6 +14,10 @@ RUN (cd /opt/json-c && sh autogen.sh && ./configure && make && make install)
 ADD https://github.com/phalcon/cphalcon/archive/phalcon-v2.0.8.tar.gz /opt/cphalcon.tar.gz
 RUN (cd /opt && mkdir cphalcon && tar -xf cphalcon.tar.gz -C cphalcon --strip-components=1 && rm cphalcon.tar.gz && cd /opt/cphalcon/build && ./install)
 
+ADD https://github.com/allegro/php-protobuf/archive/master.tar.gz /opt/php-protobuf.tar.gz
+RUN (cd /opt && mkdir php-protobuf && tar -xf php-protobuf.tar.gz -C php-protobuf --strip-components=1 && rm php-protobuf.tar.gz)
+RUN (cd /opt/php-protobuf && phpize && ./configure && make install && echo extension = protobuf.so >> /etc/php5/fpm/php.ini && echo extension = protobuf.so >> /etc/php5/cli/php.ini)
+
 RUN apt-get install -y ca-certificates nginx && \
     rm -rf /var/lib/apt/lists/*
 

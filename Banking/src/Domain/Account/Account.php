@@ -74,6 +74,8 @@ class Account implements EventBasedAggregate
         }
 
         $this->money = $this->money->subtract($money);
+
+        $this->transfers = clone $this->transfers;
         $this->transfers->add($transferFactory->create(TransferType::SENT, $toAccount, $money));
 
         $dateTime = new \DateTime();

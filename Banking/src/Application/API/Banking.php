@@ -22,20 +22,20 @@ interface Banking
     /**
      * Activates account
      *
-     * @param string $accountID
+     * @param string $clientID
      *
      * @return void
      */
-    public function activateAccount($accountID);
+    public function activateAccount($clientID);
 
     /**
      * Deactivates account
      *
-     * @param string $accountID
+     * @param string $clientID
      *
      * @return void
      */
-    public function deactivateAccount($accountID);
+    public function deactivateAccount($clientID);
 
     /**
      * Transfer money out to chosen account

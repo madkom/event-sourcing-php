@@ -59,8 +59,18 @@ class SynchronizeEvents
                         /** @var \Madkom\ES\Banking\Application\API\Banking $bankingAPI */
                         $bankingAPI = $diContainer->get('banking.api');
 
-                        if($data['type'] == 'Dgafka.ES.Client.Domain.User.UserRegisteredEvent') {
+                        //You would probably want to use strategy pattern here
+                        if ($data['type'] == 'Dgafka.ES.Client.Domain.User.UserRegisteredEvent') {
                             $bankingAPI->createAccount($aggregateID);
+                        }elseif  ($data['type'] == 'Dgafka.ES.Client.Domain.User.UserChangedStatusEvent'){
+                            switch($data['payload']['status']) {
+                                case '0':
+                                    $bankingAPI->activateAccount($aggregateID);
+                                    break;
+                                case '1':
+                                    $bankingAPI->deactivateAccount($aggregateID);
+                                    break;
+                            }
                         }
                     }
                 });

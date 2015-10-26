@@ -74,13 +74,13 @@ class Banking implements \Madkom\ES\Banking\Application\API\Banking
     /**
      * Activates account
      *
-     * @param string $accountID
+     * @param string $clientID
      *
      * @return void
      */
-    public function activateAccount($accountID)
+    public function activateAccount($clientID)
     {
-        $account = $this->accountRepository->getByID(new AccountID($accountID));
+        $account = $this->accountRepository->getByClientID(new ClientID($clientID));
         $account->activate();
 
         $this->accountRepository->save($account);
@@ -89,13 +89,13 @@ class Banking implements \Madkom\ES\Banking\Application\API\Banking
     /**
      * Deactivates account
      *
-     * @param string $accountID
+     * @param string $clientID
      *
      * @return void
      */
-    public function deactivateAccount($accountID)
+    public function deactivateAccount($clientID)
     {
-        $account = $this->accountRepository->getByID(new AccountID($accountID));
+        $account = $this->accountRepository->getByClientID(new ClientID($clientID));
         $account->deactivate();
 
         $this->accountRepository->save($account);

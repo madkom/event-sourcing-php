@@ -69,6 +69,8 @@ final class DoctrineEntityManager
         Type::addType('jsonb', '\Boldtrn\JsonbBundle\Types\JsonbArrayType');
         Type::addType('transfer', '\Madkom\ES\Banking\UI\Bundle\ORM\Type\TransferType');
 
+        $config->setAutoGenerateProxyClasses(false);
+
         $entityManager    = EntityManager::create($dbParams, $config);
         $connection       = $entityManager->getConnection();
         $databasePlatform = $connection->getDatabasePlatform();

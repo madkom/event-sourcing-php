@@ -28,6 +28,10 @@ try {
         ));
     });
 
+    $di->setShared('clientQueryAPI', function(){
+       return new \Dgafka\ES\Client\Application\Internal\ClientQuery(new \Dgafka\ES\Client\Infrastructure\ClientQueryRepository());
+    });
+
     // Setup the view component
     $di->set('view', function () {
         $view = new View();
@@ -70,6 +74,22 @@ try {
                 'controller' => 'client',
                 'action'     => 'makeVIP'
             ], ['PUT']
+        );
+
+        $router->add(
+            '/getall',
+            [
+                'controller' => 'client-query',
+                'action'     => 'getAll'
+            ]
+        );
+
+        $router->add(
+            '/getbyid',
+            [
+                'controller' => 'client-query',
+                'action'     => 'getByID'
+            ]
         );
 
         return $router;

@@ -35,7 +35,7 @@ ADD ./docker/supervisord/php5-fpm.conf /etc/supervisor/conf.d/php5-fpm.conf
 
 ADD ./ /var/www
 
-RUN (cd /var/www && curl -sS https://getcomposer.org/installer | php && php composer.phar install)
+RUN (cd /var/www && curl -sS https://getcomposer.org/installer | php && php composer.phar install && rm composer.phar)
 
 EXPOSE 80 9001
 

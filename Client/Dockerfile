@@ -32,6 +32,7 @@ ADD ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 ADD ./docker/supervisord/nginx.conf /etc/supervisor/conf.d/nginx.conf
 ADD ./docker/supervisord/php5-fpm.conf /etc/supervisor/conf.d/php5-fpm.conf
+ADD ./docker/supervisord/internal-worker.conf /etc/supervisor/conf.d/internal-worker.conf
 
 ADD ./ /var/www
 

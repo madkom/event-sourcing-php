@@ -63,4 +63,4 @@ To run the project you need to have installed
 4. Run `composer install` inside `Banking` and `Client` folders
 5. Create `access key` on Rancher
 6. Run with your access key information `rancher-compose --access-key {access_key} --secret-key {secret_key} --url {url} -p event_sourcing up`
-7. Wait 2-3 minutes for everything to start and then run `sh startup.sh` from Banking/migration catalog.
+7. Wait 2-5 minutes for everything to start and then run `sh startup.sh` from Banking/migration and Client/migration catalog.

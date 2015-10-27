@@ -4,6 +4,10 @@ namespace Dgafka\ES\Client\UI\Worker\Internal;
 
 require(__DIR__ . '/../../../../vendor/autoload.php');
 
+use Dgafka\ES\Client\Domain\User\User;
+use Dgafka\ES\Client\Domain\User\UserData;
+use Dgafka\ES\Client\Domain\User\UserID;
+use Dgafka\ES\Client\Domain\User\UserStatus;
 use Dgafka\ES\Client\UI\ReadModelBundle\App\DoctrineEntityManager;
 use Madkom\EventStore\Client\Application\Api\EventStore;
 use Madkom\EventStore\Client\Domain\Socket\Data\StreamEventAppeared;
@@ -68,20 +72,53 @@ class ReadModelSynchronizer
 
                         $user = $this->entityManager->getRepository('Dgafka\ES\Client\Domain\User\User')->find($aggregateID);
 
-                        var_dump($data);
-                        die();
+
                         //You would probably want to use strategy pattern here
                         if ($data['type'] == 'Dgafka.ES.Client.Domain.User.UserRegisteredEvent') {
                             $user = new User();
 
-//                            $user->register($data[''])
+                            $rflClass = new \ReflectionClass($user);
+                            $userIDProp = $rflClass->getProperty('userID');
+                            $userDataProp = $rflClass->getProperty('userData');
 
-                        }elseif  ($data['type'] == 'Dgafka.ES.Client.Domain.User.UserChangedStatusEvent'){
+                            $userIDProp->setAccessible(true);
+                            $userDataProp->setAccessible(true);
 
-                        }elseif  ($data['type'] == 'Dgafka.ES.Client.Domain.User.UserChangedDataEvent'){
+                            $userIDProp->setValue($user, new UserID($aggregateID));
+                            $userDataProp->setValue($user, new UserData($data['payload']['name'], $data['payload']['surname']));
 
-                        }elseif  ($data['type'] == 'Dgafka.ES.Client.Domain.User.UserBecameVIPEvent'){
+                        }elseif  ($user && $data['type'] == 'Dgafka.ES.Client.Domain.User.UserChangedStatusEvent'){
 
+                            $rflClass = new \ReflectionClass($user);
+                            $statusProp = $rflClass->getProperty('status');
+
+                            $statusProp->setAccessible(true);
+
+                            $statusProp->setValue($user, new UserStatus($data['payload']['status']));
+
+                        }elseif  ($user && $data['type'] == 'Dgafka.ES.Client.Domain.User.UserChangedDataEvent'){
+
+                            $rflClass = new \ReflectionClass($user);
+                            $userDataProp = $rflClass->getProperty('userData');
+
+                            $userDataProp->setAccessible(true);
+
+                            $userDataProp->setValue($user, new UserData($data['payload']['name'], $data['payload']['surname']));
+
+                        }elseif  ($user && $data['type'] == 'Dgafka.ES.Client.Domain.User.UserBecameVIPEvent'){
+
+                            $rflClass = new \ReflectionClass($user);
+                            $vipStatusProp = $rflClass->getProperty('vipStatus');
+
+                            $vipStatusProp->setAccessible(true);
+
+                            $vipStatusProp->setValue($user, true);
+
+                        }
+
+                        if($user) {
+                            $this->entityManager->persist($user);
+                            $this->entityManager->flush();
                         }
                     }
                 });

@@ -1,4 +1,4 @@
-## Repository under development. Come back later :)
+# MicroService with Event Sourcing Architecture
 
 ### About the project
 
@@ -19,7 +19,7 @@ Application for money management.
 Written with clean `DDD` and Objective Oriented Mapper.
 [Banking](https://github.com/madkom/event-sourcing-php/blob/feature/rancher/Banking/README.md)
 
-### Domain Scenarios ###
+### Domain Scenarios
 When client is created in system, account associated with him is created also.
 One client can only have one account.
 Whenever new account is created it should receive new member bonus equal to 100$.
@@ -36,6 +36,10 @@ Blocked account should not be able to transfer any money out. Transfer in, shoul
 User can become VIP.
 
 There should be possibility to see whole client history (changes over time)
+
+### Architecture Overview
+
+![Architecture overview](https://raw.githubusercontent.com/madkom/event-sourcing-php/master/docs/event_sourcing.png)
 
 ### Requirements
 

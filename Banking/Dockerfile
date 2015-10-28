@@ -37,6 +37,10 @@ ADD ./docker/supervisord/php5-fpm.conf /etc/supervisor/conf.d/php5-fpm.conf
 ADD ./docker/supervisord/external-worker.conf /etc/supervisor/conf.d/external-worker.conf
 ADD ./docker/supervisord/internal-worker.conf /etc/supervisor/conf.d/internal-worker.conf
 
+ADD ./ /var/www
+
+RUN (cd /var/www && curl -sS https://getcomposer.org/installer | php && php composer.phar install && rm composer.phar)
+
 EXPOSE 80 9001
 
 VOLUME /var/www

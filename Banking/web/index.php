@@ -35,7 +35,7 @@ try {
 
         $router = new \Phalcon\Mvc\Router();
         $router->add(
-            '/transferout',
+            '/banking/transferout',
             [
                 'controller' => 'banking',
                 'action'     => 'transferOut'
@@ -43,7 +43,7 @@ try {
         );
 
         $router->add(
-            '/accountbyid',
+            '/banking/accountbyid',
             [
                 'controller' => 'banking-query',
                 'action'     => 'getAccountByID'
@@ -51,7 +51,7 @@ try {
         );
 
         $router->add(
-            '/accountbyclientid',
+            '/banking/accountbyclientid',
             [
                 'controller' => 'banking-query',
                 'action'     => 'getAccountByClientID'
@@ -59,7 +59,7 @@ try {
         );
 
         $router->add(
-            '/transfers',
+            '/banking/transfers',
             [
                 'controller' => 'banking-query',
                 'action'     => 'getTransfers'

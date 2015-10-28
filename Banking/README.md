@@ -38,7 +38,7 @@ Which shared between production projects some classes like events, building bloc
 
 ### Write Model (Rest API)
 
-`transferout` [POST] - Transfers out passed amount of money from one account to account
+`/banking/transferout` [POST] - Transfers out passed amount of money from one account to account
     
     @param "from_account" - From which account money should be taken  
     @param "to_account" - To which account money should be send
@@ -49,19 +49,19 @@ Which shared between production projects some classes like events, building bloc
     
 ### Read Model (Rest API)
 
-`accountbyid` [GET] - Retrieves account by account ID
+`/banking/accountbyid` [GET] - Retrieves account by account ID
 
     @param "id" - Account ID
     
     @return json
     
-`accountbyclientid` [GET] - Retrieves account by client ID
+`/banking/accountbyclientid` [GET] - Retrieves account by client ID
 
     @param "id" - Client ID
     
     @return json
     
-`transfers` [GET] - Retrieves transfers for account
+`/banking/transfers` [GET] - Retrieves transfers for account
 
     @param "id" - Account ID
     

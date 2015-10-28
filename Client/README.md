@@ -29,14 +29,14 @@ Which shared between production projects some classes like events, building bloc
 
 ### Write Model (REST API)
 
-`register` [POST] - Creates new client in the system.
+`/client/register` [POST] - Creates new client in the system.
  
     @param "name"  
     @param "surname"
     
     @return client's ID
      
-`changedata` [PUT] - Change client's data
+`/client/changedata` [PUT] - Change client's data
 
     @param "id" - Client's ID
     @param "name"  
@@ -44,23 +44,23 @@ Which shared between production projects some classes like events, building bloc
         
     @return void
         
-`changestatus` [PUT] - Changes client's status. After registration client status is 0. Disables all other actions till status = 1
+`/client/changestatus` [PUT] - Changes client's status. After registration client status is 0. Disables all other actions till status = 1
 
     @param "id"
     @param "status" - [0 - active, 1 - blocked]
     
-`makevip` [PUT] - Make client a vip
+`/client/makevip` [PUT] - Make client a vip
 
     @param "id"
     
     
 ### Read Model (REST API)
 
-`getall` [GET] - Retrieves all clients
+`/client/getall` [GET] - Retrieves all clients
 
     @return json
     
-`getbyid` [GET] - Retrives one client by id
+`/client/getbyid` [GET] - Retrives one client by id
 
     @param "id" - Client ID
     

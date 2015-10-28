@@ -48,28 +48,28 @@ try {
 
         $router = new \Phalcon\Mvc\Router();
         $router->add(
-            '/register',
+            '/client/register',
             [
                 'controller' => 'client',
                 'action'     => 'register'
             ], ['POST']
         );
         $router->add(
-            '/changedata',
+            '/client/changedata',
             [
                 'controller' => 'client',
                 'action'     => 'changeData'
             ], ['PUT']
         );
         $router->add(
-            '/changestatus',
+            '/client/changestatus',
             [
                 'controller' => 'client',
                 'action'     => 'changeStatus'
             ], ['PUT']
         );
         $router->add(
-            '/makevip',
+            '/client/makevip',
             [
                 'controller' => 'client',
                 'action'     => 'makeVIP'
@@ -77,7 +77,7 @@ try {
         );
 
         $router->add(
-            '/getall',
+            '/client/getall',
             [
                 'controller' => 'client-query',
                 'action'     => 'getAll'
@@ -85,7 +85,7 @@ try {
         );
 
         $router->add(
-            '/getbyid',
+            '/client/getbyid',
             [
                 'controller' => 'client-query',
                 'action'     => 'getByID'

@@ -29,11 +29,17 @@ applb:
   ports:
     - 80:80
     - 443:443
+  expose:
+    - 2100:80
   restart: always
   tty: true
   image: rancher/load-balancer-service
+  labels:
+    io.rancher.loadbalancer.target.banking: /banking
+    io.rancher.loadbalancer.target.client: /client
   links:
     - client:client
+    - banking:banking
   stdin_open: true
 #  Router forwards host's packets to internal loadbalancer
 router:

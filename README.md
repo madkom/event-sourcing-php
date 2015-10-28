@@ -1,4 +1,4 @@
-# MicroService with Event Sourcing Architecture
+# MicroService with Event Sourcing Architecture written in PHP
 
 ### About the project
 

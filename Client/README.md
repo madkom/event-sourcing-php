@@ -52,3 +52,16 @@ Which shared between production projects some classes like events, building bloc
 `makevip` [PUT] - Make client a vip
 
     @param "id"
+    
+    
+### Read Model (REST API)
+
+`getall` [GET] - Retrieves all clients
+
+    @return json
+    
+`getbyid` [GET] - Retrives one client by id
+
+    @param "id" - Client ID
+    
+    @return json

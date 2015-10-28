@@ -45,3 +45,25 @@ Which shared between production projects some classes like events, building bloc
     @param "money_amount" - 
     
     @return void
+    
+    
+### Read Model (Rest API)
+
+`accountbyid` [GET] - Retrieves account by account ID
+
+    @param "id" - Account ID
+    
+    @return json
+    
+`accountbyclientid` [GET] - Retrieves account by client ID
+
+    @param "id" - Client ID
+    
+    @return json
+    
+`transfers` [GET] - Retrieves transfers for account
+
+    @param "id" - Account ID
+    
+    @return json
+    

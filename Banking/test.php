@@ -5,4 +5,4 @@ require('vendor/autoload.php');
 
 $tmp = new \Madkom\ES\Banking\Infrastructure\BankingQueryRepository();
 
-var_dump($tmp->getHistory("1b9dcd54-7c99-11e5-b8c9-2ec669f5b73b"));
+var_dump(json_decode($tmp->getHistory("06d24fc8-7d41-11e5-8ee5-f433906f8976")['transfers']));

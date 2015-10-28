@@ -8,6 +8,7 @@
         <service id="domain.event.publisher" class="Madkom\ES\Banking\Infrastructure\Domain\DomainEventPublisher"/>
         <service id="account.factory" class="Madkom\ES\Banking\Domain\Account\AccountFactory"/>
         <service id="transfer.factory" class="Madkom\ES\Banking\Domain\Account\TransferFactory"/>
+        <service id="banking.query.repository" class="Madkom\ES\Banking\Infrastructure\BankingQueryRepository"/>
 
         <service id="banking.api" class="Madkom\ES\Banking\Application\Internal\Banking">
             <argument type="service" id="account.repository"/>
@@ -15,5 +16,10 @@
             <argument type="service" id="account.factory"/>
             <argument type="service" id="transfer.factory"/>
         </service>
+
+        <service id="banking.query.api" class="Madkom\ES\Banking\Application\Internal\BankingQuery">
+            <argument type="service" id="banking.query.repository"/>
+        </service>
+
     </services>
 </container>

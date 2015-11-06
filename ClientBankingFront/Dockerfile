@@ -5,7 +5,7 @@ RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC64107
 RUN echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list
 RUN apt-get update -y
 
-RUN apt-get install vim gcc make re2c libpcre3-dev autoconf autogen intltool libtool git php5-dev php5-fpm supervisor curl php5-pgsql postgresql-client -y
+RUN apt-get install vim supervisor curl
 
 RUN apt-get install -y ca-certificates nginx && \
     rm -rf /var/lib/apt/lists/*

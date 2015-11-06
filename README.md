@@ -73,4 +73,4 @@ To run the project you need to have installed
     
         Where {access_key} is the access key secret_key is password and url is EndPoint for example http://192.168.0.13:1111/v1/projects/1a5
 
-7. Wait 2-5 minutes for everything to start and then run `sh startup.sh` from Banking/migration and Client/migration catalog.
+7. Wait 2-5 minutes for everything to start and then run `sh startup.sh` from root catalog.

@@ -16,6 +16,9 @@ use Dgafka\ES\Client\Infrastructure\UserRepositoryEventSourced;
 use Dgafka\ES\Client\Infrastructure\UUIDGenerator;
 use \Dgafka\ES\Client\Application\Internal\Client;
 
+//Turn off on production
+header('Access-Control-Allow-Origin: *');
+
 try {
     // Create a DI
     $di = new FactoryDefault();

@@ -41,6 +41,14 @@ applb:
     - client:client
     - banking:banking
   stdin_open: true
+clientbankigfront:
+  image: madkom/web-php
+  ports:
+    - 1112:80
+  volumes:
+    - /data/ClientBankingFront:/var/www
+  links:
+    - applb:backend.com
 #  Router forwards host's packets to internal loadbalancer
 router:
   image: madkom/router:latest
@@ -50,8 +58,3 @@ router:
     - FORWARD[1]=80:applb:80
   links:
     - applb:applb
-clientbankigfront:
-  build: ClientBankingFront
-  links:
-    - banking:banking
-    - client:client

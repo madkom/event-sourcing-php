@@ -11,13 +11,13 @@ Read more about story around applications in `Domain Scenarios` section
     
 Application for client registration and managing.
 Written with `DDD` style, using `Event Sourcing` with `CQRS` (part)
-[Client](https://github.com/dgafka/event-sourcing-php/blob/develop/Client/README.md) writes all events to [Event Store](https://github.com/dgafka/event-sourcing-php/blob/develop/EventStore/README.md).
+[Client](https://github.com/madkom/event-sourcing-php/blob/master/Client/README.md) writes all events to [Event Store](https://github.com/madkom/event-sourcing-php/blob/master/EventStore/README.md).
     
 #### Banking
 
 Application for money management. 
 Written with clean `DDD` and Objective Oriented Mapper.
-[Banking](https://github.com/madkom/event-sourcing-php/blob/feature/rancher/Banking/README.md)
+[Banking](https://github.com/madkom/event-sourcing-php/blob/master/Banking/README.md)
 
 ### Domain Scenarios
 When client is created in system, account associated with him is created also.
@@ -55,16 +55,22 @@ To run the project you need to have installed
 1. Run docker command `sudo docker run -d --restart=always -p 1111:8080 rancher/server`
 	a) Find out your own IP for example `192.168.0.13`. You can use `ifconfig` command.
 * I will use 192.168.0.13 as your IP, replace it with your own. (Do not use localhost or 127.0.0.1)
-2. Go to `http://192.168.0.13:1080/infra/hosts`
+2. Go to `http://192.168.0.13:1111/infra/hosts`
+	
 	a) Click on `Add Host`
 	b) Do not change settings and click `Save`
 	c) Choose `Custom`, type of host
-	d) Copy docker command and run it from your console
+	d) Copy docker command
 		for example: `sudo docker run -d --privileged -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 http://192.168.0.13:1111/v1/scripts/454960D9BDBB0F694D89:1443607200000:xtVhhKyVGRBeZxvUf4dN5HdjZ6s`
 		and add env variable to the command:
 `sudo docker run -e CATTLE_AGENT_IP=192.168.0.13 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 http://192.168.0.13:1111/v1/scripts/454960D9BDBB0F694D89:1443607200000:xtVhhKyVGRBeZxvUf4dN5HdjZ6s`
-3. Go to `http://192.168.0.13:1080/infra/hosts` and check, if host appeared. If it doesn't exists get back to the `point 1`.
+    e) run the command
+
+3. Go to `http://192.168.0.13:1111/infra/hosts` and check, if host appeared. If it doesn't exists get back to the `point 1`.
 4. Run `composer install` inside `Banking` and `Client` folders
-5. Create `access key` on Rancher
+5. Go to `http://192.168.0.13:1111/settings/api` create `api key` on Rancher
 6. Run with your access key information `rancher-compose --access-key {access_key} --secret-key {secret_key} --url {url} -p event_sourcing up`
+    
+        Where {access_key} is the access key secret_key is password and url is EndPoint for example http://192.168.0.13:1111/v1/projects/1a5
+
 7. Wait 2-5 minutes for everything to start and then run `sh startup.sh` from Banking/migration and Client/migration catalog.

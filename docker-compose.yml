@@ -50,3 +50,8 @@ router:
     - FORWARD[1]=80:applb:80
   links:
     - applb:applb
+clientbankigfront:
+  build: ClientBankingFront
+  links:
+    - banking:banking
+    - client:client

@@ -35,4 +35,27 @@ class BankingController extends Controller
         $bankingAPI->transferOut($fromAccount, $toAccount, $moneyAmount);
     }
 
+    /**
+     * Transfer money to choosen client
+     *
+     * @throws \Exception
+     */
+    public function transferOutByClientAction()
+    {
+        if(!$this->request->has('from_client') || !$this->request->has('to_client') || !$this->request->has('money_amount')) {
+            throw new \Exception('Missing one parameters from_account or to_account or money_amount');
+        }
+
+        $fromClient = $this->request->get('from_client');
+        $toClient   = $this->request->get('to_client');
+        $moneyAmount = (int)$this->request->get('money_amount');
+
+
+        $diContainer = \Madkom\ES\Banking\UI\Bundle\App\DependencyContainer::getInstance();
+        /** @var \Madkom\ES\Banking\Application\API\Banking $bankingAPI */
+        $bankingAPI = $diContainer->get('banking.api');
+
+        $bankingAPI->transferOutByClientID($fromClient, $toClient, $moneyAmount);
+    }
+
 }

@@ -60,11 +60,8 @@ To run the project you need to have installed
 	a) Click on `Add Host`
 	b) Do not change settings and click `Save`
 	c) Choose `Custom`, type of host
-	d) Copy docker command
+	d) Copy and run docker command
 		for example: `sudo docker run -d --privileged -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 http://192.168.0.13:1111/v1/scripts/454960D9BDBB0F694D89:1443607200000:xtVhhKyVGRBeZxvUf4dN5HdjZ6s`
-		and add env variable to the command:
-`sudo docker run -e CATTLE_AGENT_IP=192.168.0.13 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 http://192.168.0.13:1111/v1/scripts/454960D9BDBB0F694D89:1443607200000:xtVhhKyVGRBeZxvUf4dN5HdjZ6s`
-    e) run the command
 
 3. Go to `http://192.168.0.13:1111/infra/hosts` and check, if host appeared. If it doesn't exists get back to the `point 1`.
 4. Run `composer install` inside `Banking` and `Client` folders

@@ -49,6 +49,17 @@ interface Banking
     public function transferOut($fromAccount, $toAccount, $money);
 
     /**
+     * Transfer money out to chosen account by client ids
+     *
+     * @param string $fromClient
+     * @param string $toClient
+     * @param int    $money
+     *
+     * @return void
+     */
+    public function transferOutByClientID($fromClient, $toClient, $money);
+
+    /**
      * Transfer money in to chosen account
      *
      * @param $fromAccount

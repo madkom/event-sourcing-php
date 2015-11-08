@@ -38,14 +38,22 @@ Which shared between production projects some classes like events, building bloc
 
 ### Write Model (Rest API)
 
-`/banking/transferout` [POST] - Transfers out passed amount of money from one account to account
+`/banking/transferout` [POST] - Transfers out passed amount of money from one account to another
     
     @param "from_account" - From which account money should be taken  
     @param "to_account" - To which account money should be send
-    @param "money_amount" - 
+    @param "money_amount" - To send
     
     @return void
+
+`/banking/transferoutbyclient` [POST] - Transfers out passed amount of money from one client to another
     
+    @param "from_client" - From which client money should be taken  
+    @param "to_client" - To which client money should be send
+    @param "money_amount" - To send
+    
+    @return void
+
     
 ### Read Model (Rest API)
 

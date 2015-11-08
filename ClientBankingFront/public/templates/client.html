@@ -5,26 +5,193 @@
     <title>Client</title>
     <link rel="stylesheet" href="../app/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../app/bootstrap/css/bootstrap-theme.min.css"/>
-    <script src="../app/bootstrap/js/bootstrap.min.js"></script>
     <script src="../app/jquery/jquery.min.js"></script>
+    <script src="../app/bootstrap/js/bootstrap.min.js"></script>
+
+    <script>
+        var url = '10.42.44.133';
+    </script>
+
 </head>
 <body>
 
-    <div class="panel">
-        <div class="panel-body" id="grid"></div>
-    </div>
+<a href="../index.html">Back</a>
 
-    <script>
-        $.ajax({
-            url: "http://backend.com/client/getall",
-            success: function(data) {
-                console.log('well done');
-            },
-            failure: function(error) {
-                console.log('failure');
-            }
-        })
-    </script>
+<h2>Registration</h2>
+<form class="dataForm" id="registerForm">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="name..." name="name">
+    </div>
+    <div class="form-group">
+        <label for="surname">Surname</label>
+        <input type="text" class="form-control" id="surname" placeholder="surname..." name="surname">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<hr/>
+
+<h2>Clients</h2>
+<div class="container-fluid"  id="grid">
+    <div class="row">
+        <div class="col-md-2">ID</div>
+        <div class="col-md-2">Name</div>
+        <div class="col-md-2">Surname</div>
+        <div class="col-md-1">Status</div>
+        <div class="col-md-1">VIP</div>
+        <div class="col-md-2">Actions</div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="clientDataForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Change Client Data</h4>
+            </div>
+            <div class="modal-body">
+                <form class="dataForm">
+                    <input type="hidden" name="id">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" placeholder="name..." name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">Surname</label>
+                        <input type="text" class="form-control" placeholder="surname..." name="surname">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#registerForm').attr('action', 'http://' + url + '/client/register');
+
+    $.ajax({
+        url: "http://"+url+"/client/getall",
+        success: function(data) {
+            var grid = $('#grid');
+            var init = false;
+
+            data = JSON.parse(data).data;
+            data.forEach(function(client) {
+                grid.append('<div class="row" data-id="'+client.userid_id+'"></div>');
+
+                var row = $('div[data-id='+client.userid_id+']');
+
+                row.append("<div class='col-md-2 id'>" + client.userid_id + "</div>");
+                row.append("<div class='col-md-2 name'>" + client.userdata_name + "</div>")
+                row.append("<div class='col-md-2 surname'>" + client.userdata_surname + "</div>")
+                row.append("<div class='col-md-1 status'>" + (client.status_status == '0' ? 'Active' : 'Blocked') + "</div>");
+                row.append("<div class='col-md-1 vip'>" + (client.vip_status == true ? 'YES' : 'NO') + "</div>");
+                row.append("<div class='col-md-2'>" +
+                        "<button class='btn btn-primary change-data' data-id='" + client.userid_id + "'>Change data</button>" + ' ' +
+                        (client.status_status == '0' ? "<button class='btn btn-warning deactive' data-id='" + client.userid_id + "'>Deactive</button>" : "<button class='btn btn-default active' data-id='" + client.userid_id + "'>Active</button>") +
+                        (client.vip_status == false ? "<button class='btn btn-primary makevip' data-id='" + client.userid_id + "'>Make VIP</button>" : '') +
+                        '</div>'
+                );
+            });
+
+            $('button.change-data').on('click', function() {
+                var id = $(this).attr('data-id');
+
+                $('#clientDataForm input[name="id"]').val(id);
+                $('#clientDataForm input[name="name"]').val($(this).parent().children('.name').html());
+                $('#clientDataForm input[name="surname"]').val($(this).parent().children('.surname').html());
+                $('#clientDataForm').modal('show');
+
+                if(!init) {
+                    $('#clientDataForm').on('submit', function(e) {
+                        if(e.preventDefault) e.preventDefault(); else e.returnValue = false;
+
+                        $.ajax({
+                            url: 'http://' + url + '/client/changeData',
+                            data: {
+                                id: id,
+                                name: $('#clientDataForm input[name="name"]').val(),
+                                surname: $('#clientDataForm input[name="surname"]').val()
+                            },
+                            success: function (data) {
+                                $('#clientDataForm').modal('hide');
+                                alert('Client edited successfully ' + id);
+                            },
+                            failure: function(error) {
+                                $('#clientDataForm').modal('hide');
+                                console.log('failure.');
+                            }
+                        });
+
+                    });
+
+                    init = true;
+                }
+            });
+
+            $('button.deactive').on('click', function() {
+                var id = $(this).attr('data-id');
+
+                $.ajax({
+                    url: 'http://' + url + '/client/changeStatus',
+                    data: {
+                        id: id,
+                        status: 1
+                    },
+                    success: function (data) {
+                        alert('Client deactived ' + id);
+                    },
+                    failure: function(error) {
+                        console.log('failure.');
+                    }
+                });
+            });
+
+            $('button.active').on('click', function() {
+                var id = $(this).attr('data-id');
+
+                $.ajax({
+                    url: 'http://' + url + '/client/changeStatus',
+                    data: {
+                        id: id,
+                        status: 0
+                    },
+                    success: function (data) {
+                        alert('Client actived ' + id);
+                    },
+                    failure: function(error) {
+                        console.log('failure.');
+                    }
+                });
+            });
+
+            $('button.makevip').on('click', function() {
+                var id = $(this).attr('data-id');
+
+                $.ajax({
+                    url: 'http://' + url + '/client/makeVIP',
+                    data: {
+                        id: id
+                    },
+                    success: function (data) {
+                        alert('Client became VIP ' + id);
+                    },
+                    failure: function(error) {
+                        console.log('failure.');
+                    }
+                });
+            });
+
+        },
+        failure: function(error) {
+            console.log('failure');
+        }
+    })
+</script>
 
 </body>
 </html>

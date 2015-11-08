@@ -5,12 +5,128 @@
     <title>Banking</title>
     <link rel="stylesheet" href="../app/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../app/bootstrap/css/bootstrap-theme.min.css"/>
-    <script src="../app/bootstrap/js/bootstrap.min.js"></script>
     <script src="../app/jquery/jquery.min.js"></script>
+    <script src="../app/bootstrap/js/bootstrap.min.js"></script>
+
+    <script>
+        var banking_url = '10.42.206.92';
+        var client_url  = '10.42.44.133';
+    </script>
+
 </head>
-<body>
+<a href="../index.html">Back</a>
+
     <div class="panel">
         <div class="panel-body" id="grid"></div>
     </div>
+
+    <h2>Get Information about account</h2>
+
+    <select class="form-control" id="accountList">
+        <option disabled>Choose</option>
+    </select>
+
+    <div class="container-fluid">
+        Money amount: <div id="accountMoney"></div>
+        Active: <div id="accountActive"></div>
+        History <button class="btn-default" id="historyReveal">Reveal history</button><div id="accountHistory"></div>
+    </div>
+
+    <hr/>
+    <h2>Transfer money</h2>
+
+    <div class="container-fluid">
+        From account:
+        <select class="form-control" id="fromAccount">
+            <option disabled>Choose</option>
+        </select>
+        To account:
+        <select class="form-control" id="toAccount">
+            <option disabled>Choose</option>
+        </select>
+        Amount: <input type="number" class="form-group" id="moneyAmount">
+        <button class="btn btn-primary" id="transfer">Transfer</button>
+    </div>
+
+    <script>
+        $.ajax({
+            url: "http://"+client_url+"/client/getall",
+            success: function(data) {
+                data = JSON.parse(data).data;
+                var accountList = $('#accountList');
+                var fromAccount = $('#fromAccount');
+                var toAccount   = $('#toAccount');
+
+                data.forEach(function (client) {
+                    accountList.append('<option value="' + client.userid_id + '">' + client.userdata_name + ' ' + client.userdata_surname + '</option>');
+                    fromAccount.append('<option value="' + client.userid_id + '">' + client.userdata_name + ' ' + client.userdata_surname + '</option>');
+                    toAccount.append('<option value="' + client.userid_id + '">' + client.userdata_name + ' ' + client.userdata_surname + '</option>');
+                })
+            },
+            failure: function() {
+                alert('failure');
+            }
+        });
+
+        $('#accountList').on('change', function(index) {
+            var id = $(this).val();
+
+            $.ajax({
+                url: "http://"+banking_url+"/banking/accountbyclientid",
+                data: {
+                    id: id
+                },
+                success: function(data) {
+                    data = JSON.parse(data).data;
+
+                    $('#accountMoney').html('<b>' + data.money_amount + '$</b>');
+                    $('#accountActive').html(data.active ? 'YES' : 'NO');
+                    $('#accountHistory').html('');
+                },
+                failure: function() {
+                    alert('failure');
+                }
+            });
+        });
+
+        $('#transfer').on('click', function(e) {
+            var parent = $(this).parent();
+            var fromAccount = parent.children('#fromAccount').val();
+            var toAccount = parent.children('#toAccount').val();
+            var amount    = parent.children('#moneyAmount').val();
+
+            if(amount.length < 1 ) {
+                alert('Pass money amount');
+                return;
+            }
+            if(toAccount == null || toAccount.length < 1) {
+                alert('Choose which account send money to');
+                return;
+            }
+            if(fromAccount == null || fromAccount.length < 1) {
+                alert('Choose which from which account take money');
+                return;
+            }
+
+            $.ajax({
+                url: "http://"+banking_url+"/banking/transferoutbyclient",
+                method: 'POST',
+                data: {
+                    from_client: fromAccount,
+                    to_client: toAccount,
+                    money_amount: amount
+                },
+                success: function(data) {
+                    alert(!data ? 'Money transfered' : data);
+                },
+                failure: function() {
+                    alert('failure');
+                }
+            });
+
+        });
+
+    </script>
+
 </body>
 </html>

@@ -44,11 +44,12 @@ applb:
 clientbankigfront:
   image: madkom/web-php
   ports:
-    - 1112:80
+    - 0.0.0.0:1112:80
   volumes:
     - /data/ClientBankingFront:/var/www
   links:
-    - applb:backend.com
+    - banking:banking-backend.com
+    - client:client-backend.com
 #  Router forwards host's packets to internal loadbalancer
 router:
   image: madkom/router:latest

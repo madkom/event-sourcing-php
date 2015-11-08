@@ -100,6 +100,14 @@ class Account implements EventBasedAggregate
     }
 
     /**
+     * @return AccountID
+     */
+    public function ID()
+    {
+        return $this->accountID;
+    }
+
+    /**
      * Activates account
      */
     public function activate()

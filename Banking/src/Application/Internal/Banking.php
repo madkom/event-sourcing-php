@@ -144,4 +144,27 @@ class Banking implements \Madkom\ES\Banking\Application\API\Banking
 
     }
 
+    /**
+     * Transfer money out to chosen account by client ids
+     *
+     * @param string $fromClient
+     * @param string $toClient
+     * @param int    $money
+     */
+    public function transferOutByClientID($fromClient, $toClient, $money)
+    {
+        $account = $this->accountRepository->getByClientID(new ClientID($fromClient));
+        $toAccount = $this->accountRepository->getByClientID(new ClientID($toClient));
+
+        $account->debit($this->transferFactory, $toAccount->ID(), new Money($money));
+
+        $this->accountRepository->save($account);
+
+        //For internal events.
+        $this->domainEventPublisher->subscribe(new InternalEventSubscriber(), 'Madkom\ES\Banking\Domain\Account\MoneyTransferredEvent');
+        foreach($account->getUncommittedEvents() as $event) {
+            $this->domainEventPublisher->publish($event);
+        }
+    }
+
 }

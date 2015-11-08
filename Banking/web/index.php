@@ -46,6 +46,14 @@ try {
         );
 
         $router->add(
+            '/banking/transferoutbyclient',
+            [
+                'controller' => 'banking',
+                'action'     => 'transferOutByClient'
+            ], ['POST']
+        );
+
+        $router->add(
             '/banking/accountbyid',
             [
                 'controller' => 'banking-query',

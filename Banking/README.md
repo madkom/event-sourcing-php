@@ -75,3 +75,8 @@ Which shared between production projects some classes like events, building bloc
     
     @return json
     
+`/banking/transfersbyclient` [GET] - Retrieves transfers for client
+
+    @param "client_id" - client ID
+    
+    @return json

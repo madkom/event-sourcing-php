@@ -24,16 +24,26 @@ interface BankingQuery
      *
      * @param $clientID
      *
-     * @return mixed
+     * @return array
      */
     public function getAccountByClientID($clientID);
 
     /**
+     * Returns account's history
+     *
      * @param $accountID
      *
-     * @return mixed
+     * @return array
      */
     public function getHistory($accountID);
 
+    /**
+     * Returns account's history by client id
+     *
+     * @param $clientID
+     *
+     * @return array
+     */
+    public function getHistoryByClientID($clientID);
 
 }

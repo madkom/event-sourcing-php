@@ -60,4 +60,18 @@ class BankingQueryRepository implements \Madkom\ES\Banking\Application\Helper\Ba
         return $pstmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getHistoryByClientID($clientID)
+    {
+        $connection = $this->doctrineEntityManager->getConnection();
+
+        $pstmt = $connection->prepare("SELECT transfers FROM account WHERE clientid_id = :clientID");
+        $pstmt->execute([':clientID' => $clientID]);
+
+        return $pstmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+
 }

@@ -49,4 +49,12 @@ class BankingQuery implements \Madkom\ES\Banking\Application\API\BankingQuery
         return $this->bankingQueryRepository->getHistory($accountID);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getHistoryByClientID($clientID)
+    {
+        return $this->bankingQueryRepository->getHistoryByClientID($clientID);
+    }
+
 }

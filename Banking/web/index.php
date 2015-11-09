@@ -70,12 +70,21 @@ try {
         );
 
         $router->add(
+            '/banking/transfersbyclient',
+            [
+                'controller' => 'banking-query',
+                'action'     => 'getTransfersByClientID'
+            ], ['GET']
+        );
+
+        $router->add(
             '/banking/transfers',
             [
                 'controller' => 'banking-query',
                 'action'     => 'getTransfers'
             ], ['GET']
         );
+
 
         return $router;
     });

@@ -37,4 +37,13 @@ interface BankingQueryRepository
      */
     public function getHistory($ID);
 
+    /**
+     * Returns account by client id
+     *
+     * @param $clientID
+     *
+     * @return array
+     */
+    public function getHistoryByClientID($clientID);
+
 }

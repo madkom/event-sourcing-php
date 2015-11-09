@@ -85,4 +85,30 @@ class BankingQueryController extends Controller
 
     }
 
+    /**
+     * Return transfer by client
+     *
+     * @throws \Exception
+     */
+    public function getTransfersByClientIDAction()
+    {
+        if(!$this->request->has('client_id')) {
+            throw new \Exception('Missing one parameters account `client_id`');
+        }
+        $clientID = $this->request->get('client_id');
+
+        $diContainer = DependencyContainer::getInstance();
+
+        /** @var BankingQuery $queryAPI */
+        $queryAPI = $diContainer->get('banking.query.api');
+
+        $transfers = $queryAPI->getHistoryByClientID($clientID);
+        if($transfers) {
+            $transfers = json_decode($transfers['transfers']);
+        }
+
+        $this->response->setJsonContent(['data' => $transfers]);
+        $this->response->send();
+    }
+
 }

@@ -9,8 +9,8 @@
     <script src="../app/bootstrap/js/bootstrap.min.js"></script>
 
     <script>
-        var banking_url = '10.42.206.92';
-        var client_url  = '10.42.44.133';
+        var banking_url = '10.42.105.248';
+        var client_url  = '10.42.39.124';
     </script>
 
 </head>
@@ -118,6 +118,36 @@
                 },
                 success: function(data) {
                     alert(!data ? 'Money transfered' : data);
+                },
+                failure: function() {
+                    alert('failure');
+                }
+            });
+
+        });
+
+        $('#historyReveal').on('click', function(e) {
+
+            $.ajax({
+                url: "http://"+banking_url+"/banking/transfersbyclient",
+                method: 'GET',
+                data: {
+                    client_id: $('#accountList').val()
+                },
+                success: function(data) {
+                    data = JSON.parse(data).data;
+                    var accountHistory = $('#accountHistory');
+
+                    data.forEach(function(transfer){
+                        accountHistory.append(
+                                '<div class="container-fluid">' +
+                                'Type: <div><b>' + (transfer.transfer_type.type == 0 ? 'Sent' : 'Received') + '</b></div>' +
+                                'Date: <div><b>' + transfer.date + '</b></div>' +
+                                'Collaborator: <div><b>' + transfer.collaborating_i_d._i_d + '</b></div>' +
+                                'Money amount: <div><b>' + transfer.money.amount + ' $</b></div>' +
+                                '</div><hr/>'
+                        );
+                    });
                 },
                 failure: function() {
                     alert('failure');
